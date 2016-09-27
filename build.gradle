@@ -1,0 +1,83 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath(
+			'org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE',
+		)
+    }
+}
+
+plugins {
+    id "org.flywaydb.flyway" version "4.0.3"
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+apply plugin: 'org.flywaydb.flyway'
+
+war {
+	baseName = 'ServierViewer'
+	version = '1.0-SNAPSHOT'
+	archiveName = 'ServerViewer.war'
+}
+
+sourceCompatibility = '1.8'
+targetCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+			srcDir file('src/integration-test/java')
+		}
+		resources.srcDir file('src/integration-test/resources')
+	}
+}
+
+configurations {
+	integrationTestCompile.extendsFrom testCompile
+	integrationTestRuntime.extendsFrom testRuntime
+}
+
+dependencies {
+	compile(
+		'org.springframework.boot:spring-boot-starter-web',
+		'org.springframework.boot:spring-boot-starter-data-jpa',
+        'org.springframework.boot:spring-boot-starter-thymeleaf',
+		'mysql:mysql-connector-java',
+		'org.flywaydb:flyway-core'
+	)
+	testCompile(
+		'org.springframework.boot:spring-boot-starter-test',
+		'junit:junit'
+	)
+	integrationTestCompile(
+		'org.dbunit:dbunit:2.5.3',
+        'com.github.springtestdbunit:spring-test-dbunit:1.3.0'
+	)
+	integrationTestRuntime(
+		'org.hsqldb:hsqldb'
+	)
+}
+
+task integrationTests(type:Test){
+	description = 'Run integration tests (located in src/integration-test).'
+	testClassesDir = project.sourceSets.integrationTest.output.classesDir
+	classpath = project.sourceSets.integrationTest.runtimeClasspath
+}
+
+flyway {
+    url = 'jdbc:mysql://localhost:3306/server_viewer?useSSL=false'
+    user = 'serverviewer'
+    password = 'serverviewer'
+}
