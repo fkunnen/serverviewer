@@ -55,7 +55,10 @@ dependencies {
 		'org.springframework.boot:spring-boot-starter-data-jpa',
         'org.springframework.boot:spring-boot-starter-thymeleaf',
 		'mysql:mysql-connector-java',
-		'org.flywaydb:flyway-core'
+		'org.flywaydb:flyway-core',
+		'org.webjars:bootstrap:3.3.6',
+		'org.webjars:jquery:3.1.1',
+        'org.webjars:font-awesome:4.6.3'
 	)
 	testCompile(
 		'org.springframework.boot:spring-boot-starter-test',

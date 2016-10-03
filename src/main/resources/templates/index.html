@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-wodth, initial-scale=1">
+	<meta name="description" content="Overview of the different servers in your application development landscape and its deployed applications">
+	<meta name="author" context="fkunnen">
+
+	<title>ServerViewer</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+
+	 <!-- Custom CSS -->
+	 <link rel="stylesheet" type="text/css" href="../css/serverviewer.css">
+
+
+</head>
+
+<body>
+	<!-- Header -->
+	<header class="main-header">
+
+		<a class="sidebar-toggle" href="#" id="menu-toggle" role="button">
+			<i class="fa fa-bars"></i>
+		</a>
+
+		<!-- Logo -->
+	    <a href="index.html" class="title">
+	      	<span><b>ServerViewer</b></span>
+	    </a>
+		
+		</header>
+
+	<div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="#">
+                    <i class="fa fa-binoculars" aria-hidden=true></i>
+                    <span>Visualization</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                    	<i class="fa fa-laptop" aria-hidden=true></i>
+                    	<span>Server</span>
+                    </a>
+                    <ul class="treeview-menu">
+                    	<li>
+                    		<a href="#">
+                    			<i class="fa fa-cubes" aria-hidden=true></i>
+                    			<span>Cluster</span>
+                    		</a>
+                    	</li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-cube" aria-hidden=true></i>
+                                <span>Server</span>
+                            </a>
+                        </li>
+                    	<li>
+                    		<a href="#">
+                    			<i class="fa fa-globe" aria-hidden=true></i>
+                    			<span>Environment</span>
+                    		</a>
+                    	</li>
+                    	<li>
+                    		<a href="#">
+                    			<i class="fa fa-map-marker" aria-hidden=true></i>
+                    			<span>Location</span>
+                    		</a>
+                    	</li>
+                    	<li>
+                    		<a href="#">
+                    			<i class="fa fa-windows" aria-hidden=true></i>
+                    			<span>Operating System</span>
+                    		</a>
+                    	</li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                    	<i class="fa fa-calculator" aria-hidden=true></i>
+                    	<span>Application</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                    	<i class="fa fa-rocket" aria-hidden=true></i>
+                    	<span>Deployment</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                    	<i class="fa fa-question" aria-hidden=true></i>
+                    	<span>Help</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Server viewer</h1>
+                        <p>This template has a responsive menu toggling system. The menu will appear collapsed. When toggled using the button below, the menu will appear/disappear.</p>
+                        <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>.</p>
+                    </div>
+                </div>
+    		</div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/js/bootstrap.min.js"
+    		th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+
+    <!-- JQuery JavaScript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+    		th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+    <!-- Menu Toggle Script -->
+    <script>
+    $('#menu-toggle').click(function(e) {
+        e.preventDefault();
+        $('#wrapper').toggleClass("toggled");
+    });
+    </script>
+</body>
+
+</html>
