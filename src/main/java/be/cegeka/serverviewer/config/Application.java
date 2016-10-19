@@ -7,9 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("be.cegeka.serverviewer.server")
-@EnableJpaRepositories("be.cegeka.serverviewer.server")
-@EntityScan("be.cegeka.serverviewer.server")
+@ComponentScan("be.cegeka.serverviewer.servers")
+@EnableJpaRepositories("be.cegeka.serverviewer.servers")
+@EntityScan("be.cegeka.serverviewer.servers")
 public class Application {
 
     public static void main(String[] args){

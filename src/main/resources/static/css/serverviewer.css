@@ -37,14 +37,16 @@
 }
 
 #page-content-wrapper {
-    position: absolute;
+    position: relative;
     top: 50px;
     width: 100%;
+    height: 100%;
     padding: 15px;
+    background: #ecf0f5;
 }
 
 #wrapper.toggled #page-content-wrapper {
-    position: absolute;
+    position: relative;
     margin-right: -230px;
 }
 
@@ -154,4 +156,62 @@
 
 .treeview-menu > li > a > .fa {
     width: 20px;
+}
+
+.box {
+    position: relative;
+    border-radius: 3px;
+    background: #ffffff;
+    border-top: 3px solid #d2d6de;
+    margin-bottom: 20px;
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.box.box-info {
+    border-top-color: #00c0ef;
+}
+
+.box-header {
+    position: relative;
+    display: block;
+    padding: 10px;
+    color: #444;
+}
+
+.box-header.with-border {
+    border-bottom: 1px solid #f4f4f4;
+}
+
+.box-header .box-title {
+    display: inline-block;
+    font-size: 18px;
+    margin: 0;
+    line-height: 1
+}
+
+.box-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 10px;
+}
+
+.box-footer {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    padding: 10px;
+    border-top: 1px solid #f4f4f4;
+    background-color: #fff;
+}
+
+.form-group.error .form-control {
+    border-color: #f92424;
+}
+
+.help-inline {
+    color: #f92424;
 }

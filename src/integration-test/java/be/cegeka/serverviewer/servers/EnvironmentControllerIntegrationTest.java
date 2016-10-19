@@ -1,11 +1,8 @@
-package be.cegeka.serverviewer.server;
+package be.cegeka.serverviewer.servers;
 
 import be.cegeka.serverviewer.config.Application;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
-import com.jayway.jsonpath.spi.json.JacksonJsonProvider;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +15,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
-
-import java.io.IOException;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -38,20 +33,28 @@ public class EnvironmentControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
+    public void testGetHomePage() throws Exception {
+        mockMvc.perform(get("/")
+                .accept(MediaType.TEXT_HTML))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
+    }
+
+    @Test
     public void testGetAllEnvironments() throws Exception {
         Environment environmentAcc = new Environment("ACC");
         Environment environmentTest = new Environment("TST");
 
-        mockMvc.perform(get("/server/environment")
+        mockMvc.perform(get("/servers/environment")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("environment/list"))
+                .andExpect(view().name("environment/environment"))
                 .andExpect(model().attribute("environments", hasItems(environmentAcc, environmentTest)));
     }
 
     @Test
     public void findEnvironmentById() throws Exception {
-        mockMvc.perform(get("/server/environment/{id}", 1L))
+        mockMvc.perform(get("/servers/environment/{id}", 1L))
                 .andExpect(status().isOk())
                 .andExpect(view().name("environment/view"))
                 .andExpect(model().attribute("environment", hasProperty("id", is(1L))))
@@ -59,22 +62,24 @@ public class EnvironmentControllerIntegrationTest {
     }
 
     @Test
+    public void testCreateEnvironmentForm() throws Exception {
+        Environment emptyEnvironment = new Environment();
+
+        mockMvc.perform(get("/servers/environment/create"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("environment/createEditEnvironment"))
+                .andExpect(model().attribute("environment", is(emptyEnvironment)));
+    }
+
+    @Test
     public void testCreateEnvironment() throws Exception {
-        Environment environment = new Environment("Test");
-        JacksonJsonProvider jsonProvider = new JacksonJsonProvider();
 
-        mockMvc.perform(post("/server/environment/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(convertObjectToJsonString(environment)))
+        mockMvc.perform(post("/servers/environment/create")
+                .param("name", "CI")
+                .param("description", "Continuous integration environment")
+                .sessionAttr("environment", new Environment()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/server/environment"));
+                .andExpect(redirectedUrl("/servers/environment"));
     }
-
-    public static String convertObjectToJsonString(Object object) throws IOException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        return mapper.writeValueAsString(object);
-    }
-
 
 }

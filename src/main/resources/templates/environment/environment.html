@@ -17,7 +17,7 @@
 	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
 	th:href="@{/webjars/font-awesome/4.6.3/css/font-awesome.min.css}"/>
 	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="../static/css/serverviewer.css"
+	<link rel="stylesheet" type="text/css" href="../../static/css/serverviewer.css"
 	th:href="@{/css/serverviewer.css}"/>
 </head>
 
@@ -65,7 +65,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="./environment/createEditEnvironment.html" th:href="@{/servers/environment/create}">
+							<a href="'environment/environment.html" th:href="@{/servers/environment/create}">
 								<i class="fa fa-globe" aria-hidden="true"></i>
 								<span>Environment</span>
 							</a>
@@ -109,12 +109,9 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-lg-12">
-						<h1>Server viewer</h1>
-					</div>
+					<h1>Server viewer</h1>
 				</div>
 			</div>
-
 		</div>
 
 	</div>

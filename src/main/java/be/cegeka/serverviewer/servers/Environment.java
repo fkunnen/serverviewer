@@ -1,4 +1,4 @@
-package be.cegeka.serverviewer.server;
+package be.cegeka.serverviewer.servers;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -11,10 +11,13 @@ public class Environment {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    private Environment(){}
+    @Column
+    private String description;
+
+    public Environment(){}
 
     public Environment(String name){
         this.name = name;
@@ -26,6 +29,18 @@ public class Environment {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getDescription(){
+        return description;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     @Override
