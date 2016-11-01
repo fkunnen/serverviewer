@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -31,6 +32,7 @@ public class EnvironmentControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+
 
     @Test
     public void testGetHomePage() throws Exception {
@@ -53,15 +55,6 @@ public class EnvironmentControllerIntegrationTest {
     }
 
     @Test
-    public void findEnvironmentById() throws Exception {
-        mockMvc.perform(get("/servers/environment/{id}", 1L))
-                .andExpect(status().isOk())
-                .andExpect(view().name("environment/view"))
-                .andExpect(model().attribute("environment", hasProperty("id", is(1L))))
-                .andExpect(model().attribute("environment", hasProperty("name", is("ACC"))));
-    }
-
-    @Test
     public void testCreateEnvironmentForm() throws Exception {
         Environment emptyEnvironment = new Environment();
 
@@ -76,8 +69,32 @@ public class EnvironmentControllerIntegrationTest {
 
         mockMvc.perform(post("/servers/environment/create")
                 .param("name", "CI")
-                .param("description", "Continuous integration environment")
-                .sessionAttr("environment", new Environment()))
+                .param("description", "Continuous integration environment"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/servers/environment"));
+    }
+
+    @Test
+    public void editEnvironmentForm() throws Exception {
+        mockMvc.perform(get("/servers/environment/{id}", 1L))
+                .andExpect(status().isOk())
+                .andExpect(view().name("environment/createEditEnvironment"))
+                .andExpect(model().attribute("environment", hasProperty("id", is(1L))))
+                .andExpect(model().attribute("environment", hasProperty("name", is("ACC"))));
+    }
+
+    @Test
+    public void testEditEnvironment() throws Exception {
+        mockMvc.perform(put("/servers/environment/2")
+                .param("name", "TST")
+                .param("description", "Edit: Test environment"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/servers/environment"));
+    }
+
+    @Test
+    public void testDeleteEnvironment() throws Exception {
+        mockMvc.perform(get("/servers/environment/1/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/servers/environment"));
     }

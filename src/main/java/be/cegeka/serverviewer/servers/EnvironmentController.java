@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,16 +31,9 @@ public class EnvironmentController {
         return "environment/environment";
     }
 
-    @RequestMapping(value = "/servers/environment/{id}", method = RequestMethod.GET)
-    public String getEnvironment(@PathVariable(value = "id") long id, Model model){
-        model.addAttribute("environment", environmentRepository.findOne(id));
-        return "environment/view";
-    }
-
     @RequestMapping(value= "/servers/environment/create", method = RequestMethod.GET)
     public String createEnvironmentForm(Model model){
-        Environment environment = new Environment();
-        model.addAttribute("environment", environment);
+        model.addAttribute("environment", new Environment());
         return "environment/createEditEnvironment";
     }
 
@@ -50,6 +44,30 @@ public class EnvironmentController {
             return "environment/createEditEnvironment";
         }
         environmentRepository.save(environment);
+        return "redirect:/servers/environment";
+    }
+
+    @RequestMapping(value = "/servers/environment/{id}", method = RequestMethod.GET)
+    public String editEnvironmentForm(@PathVariable("id") long id, Model model){
+        model.addAttribute("environment", environmentRepository.findOne(id));
+        return "environment/createEditEnvironment";
+    }
+
+    @RequestMapping(value = "/servers/environment/{id}", method = RequestMethod.PUT)
+    public String editEnvironment(@PathVariable("id") Long id, @ModelAttribute("environment") Environment environmentDTO, BindingResult bindingResult){
+        Environment environment = environmentRepository.findOne(id);
+        environment.setDescription(environmentDTO.getDescription());
+        environmentValidator.validate(environment, bindingResult);
+        if (bindingResult.hasFieldErrors()){
+            return "environment/createEditEnvironment";
+        }
+        environmentRepository.save(environment);
+        return "redirect:/servers/environment";
+    }
+
+    @RequestMapping(value = "/servers/environment/{id}/delete", method = RequestMethod.GET)
+    public String deleteEnvironment(@PathVariable("id") Long id){
+        environmentRepository.delete(id);
         return "redirect:/servers/environment";
     }
 

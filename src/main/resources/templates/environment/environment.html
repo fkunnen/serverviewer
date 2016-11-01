@@ -16,6 +16,9 @@
 	<!-- Font Awesome CSS -->
 	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
 	th:href="@{/webjars/font-awesome/4.6.3/css/font-awesome.min.css}"/>
+	<!-- Datatable CSS -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"
+	th:href="@{webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css}"/>
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="../../static/css/serverviewer.css"
 	th:href="@{/css/serverviewer.css}"/>
@@ -65,7 +68,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="'environment/environment.html" th:href="@{/servers/environment/create}">
+							<a href="environment.html" th:href="@{/servers/environment}">
 								<i class="fa fa-globe" aria-hidden="true"></i>
 								<span>Environment</span>
 							</a>
@@ -109,7 +112,75 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<h1>Server viewer</h1>
+					<div class="col-lg-6">
+						
+						<div class="box box-info">
+							
+							<div class="box-header with-border">
+								<h3 class="box-title">Environments</h3>
+								<span class="box-title-btn">
+									<a href="createEditEnvironment.html" th:href="@{/servers/environment/create}" class="btn btn-success">
+										<i class="fa fa-plus"></i> Add environment
+									</a>
+								</span>
+							</div>
+
+							<div class="box-body">
+								<table id="environments_table" class="table table-bordered table-striped">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Name</th>
+											<th>Description</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody th:remove="all-but-first">
+										<tr th:each="environment : ${environments}">
+											<td class="nowrap" th:text="${environment.id}">0</td>
+											<td th:text="${environment.name}">CI</td>
+											<td th:text="${environment.description}">Continuous integration</td>
+											<td class="nowrap">
+												<a href="createEditEnvironment.html" th:href="@{|/servers/environment/${environment.id}|}" class="btn btn-primary">
+													<i class="fa fa-edit"></i> Edit
+												</a>
+        										<a href="environment.html" th:href="@{|/servers/environment/${environment.id}/delete|}" class="btn btn-danger">
+        											<i class="fa fa-trash-o"></i> Delete
+    											</a>
+											</td>
+										</tr>
+										<tr>
+											<td>1</td>
+											<td>TST</td> 
+											<td>Test</td>
+											<td>
+												<button class="btn btn-primary" onclick=""><i class="fa fa-edit"></i> Edit</button>
+        										<button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> Delete</button>
+											</td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td>ACC</td> 
+											<td>Acceptance</td>
+											<td>
+												<button class="btn btn-primary" onclick=""><i class="fa fa-edit"></i> Edit</button>
+        										<button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> Delete</button>
+											</td>
+										</tr>
+										<tr>
+											<td>3</td>
+											<td>PROD</td> 
+											<td>Production</td>
+											<td>
+												<button class="btn btn-primary" onclick=""><i class="fa fa-edit"></i> Edit</button>
+        										<button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> Delete</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -124,12 +195,26 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
 	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
 
+	<!-- DataTables -->
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.12/js/jquery.dataTables.min.js}"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"
+	th:src="@{webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js}"></script>
+
 	<!-- Menu Toggle Script -->
 	<script>
 		$('#menu-toggle').click(function(e) {
 			e.preventDefault();
 			$('#wrapper').toggleClass("toggled");
 		});
+	</script>
+
+	<script>
+		$(function () {
+    		$('#environments_table').DataTable({
+				"paging": false, "lengthChange": false, "searching": false, "ordering": true, "info": false, "autoWidth": false
+			});
+  		});
 	</script>
 </body>
 

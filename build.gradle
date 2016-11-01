@@ -59,11 +59,13 @@ dependencies {
 		'org.flywaydb:flyway-core:4.0.3',
 		'org.webjars:bootstrap:3.3.6',
 		'org.webjars:jquery:3.1.1',
-        'org.webjars:font-awesome:4.6.3'
+        'org.webjars:font-awesome:4.6.3',
+		'org.webjars:datatables:1.10.12'
 	)
 	testCompile(
 		'org.springframework.boot:spring-boot-starter-test',
-		'junit:junit'
+		'junit:junit',
+		'org.mockito:mockito-core:2.2.9'
 	)
 	integrationTestCompile(
 		'org.dbunit:dbunit:2.5.3',

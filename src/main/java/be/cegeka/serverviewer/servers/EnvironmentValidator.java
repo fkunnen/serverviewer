@@ -30,23 +30,25 @@ public class EnvironmentValidator implements Validator {
     private void validateEnvironmentName(Errors errors, Environment environment) {
         String name = environment.getName();
         if (StringUtils.isEmpty(name)) {
-            errors.rejectValue("name", "environment.name.required", "Name is mandatory");
+            errors.rejectValue("name", "environment.name.required", "Environment name is mandatory");
             return;
         }
 
-        List<Environment> environments = environmentRepository.findByName(name);
-        if (environments.contains(environment)){
-            errors.rejectValue(
-                    "name",
-                    "environment.name.unique",
-                    new Object[]{name},
-                    "An environment with name '" + name + "' already exists"
-            );
-            return;
+        if (environment.isNew()) {
+            List<Environment> environments = environmentRepository.findByName(name);
+            if (environments.contains(environment)) {
+                errors.rejectValue(
+                        "name",
+                        "environment.name.unique",
+                        new Object[]{name},
+                        "An environment with name '" + name + "' already exists"
+                );
+                return;
+            }
         }
 
         if (name.length() > 45){
-            errors.rejectValue("name", "environment.name.length", "The given name is too long");
+            errors.rejectValue("name", "environment.name.length", "The name of this environment is too long");
             return;
         }
     }
@@ -57,7 +59,7 @@ public class EnvironmentValidator implements Validator {
             errors.rejectValue(
                     "description",
                     "environment.description.length",
-                    "The given description is too long"
+                    "The description of this environment is too long"
             );
         }
     }

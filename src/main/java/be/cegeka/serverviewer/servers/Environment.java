@@ -1,15 +1,17 @@
 package be.cegeka.serverviewer.servers;
 
+import org.springframework.data.domain.Persistable;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Table(name = "environment")
-public class Environment {
+public class Environment implements Persistable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private Long id;
 
     @Column
     private String name;
@@ -23,8 +25,14 @@ public class Environment {
         this.name = name;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
+    }
+
+    @Override
+    @Transient
+    public boolean isNew() {
+        return id == null;
     }
 
     public String getName() {

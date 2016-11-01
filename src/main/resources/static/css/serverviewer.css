@@ -1,6 +1,14 @@
- body {
+body {
     overflow-x: hidden;
- }
+}
+
+a,
+a:hover,
+a:active,
+a:focus {
+    text-decoration: none;
+    outline: none;
+}
 
 /* Toggle Styles */
 
@@ -108,7 +116,6 @@
 .sidebar-menu > li > a {
     position: relative;
     display: block;
-    text-decoration: none;
     padding: 12px 5px 12px 15px;
     border-left: 3px solid transparent;
     color: #b8c7ce;
@@ -117,8 +124,6 @@
 .sidebar-menu > li > a:hover,
 .sidebar-menu > li > a:active,
 .sidebar-menu > li > a:focus {
-    text-decoration: none;
-    outline: none;
     color: #fff;
     background: #1e282c;
     border-left-color: #3c8dbc;
@@ -141,7 +146,6 @@
 .treeview-menu > li > a {
     position: relative;
     display: block;
-    text-decoration: none;
     padding: 5px 5px 5px 5px;
     color: #b8c7ce;
 }
@@ -149,8 +153,6 @@
 .treeview-menu > li > a:hover,
 .treeview-menu > li > a:active,
 .treeview-menu > li > a:focus {
-    text-decoration: none;
-    outline: none;
     color: #fff;
 }
 
@@ -190,6 +192,14 @@
     line-height: 1
 }
 
+.box-header .box-title-btn {
+    display: inline-block;
+    font-size= 18px;
+    margin: 0;
+    line-height;
+    float: right;
+}
+
 .box-body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -214,4 +224,9 @@
 
 .help-inline {
     color: #f92424;
+}
+
+td.nowrap {
+    width: 1%;
+    white-space: nowrap ;
 }
