@@ -1,8 +1,6 @@
 package be.cegeka.serverviewer.servers;
 
 import be.cegeka.serverviewer.config.Application;
-import com.github.springtestdbunit.DbUnitTestExecutionListener;
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,29 +8,27 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
-import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.transaction.Transactional;
+
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("environments.xml")
+@Transactional
 public class EnvironmentControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private EnvironmentRepository environmentRepository;
 
     @Test
     public void testGetHomePage() throws Exception {
@@ -44,14 +40,14 @@ public class EnvironmentControllerIntegrationTest {
 
     @Test
     public void testGetAllEnvironments() throws Exception {
-        Environment environmentAcc = new Environment("ACC");
-        Environment environmentTest = new Environment("TST");
+        environmentRepository.save(new Environment("ACC"));
+        environmentRepository.save(new Environment("TST"));
 
         mockMvc.perform(get("/servers/environment")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("environment/environment"))
-                .andExpect(model().attribute("environments", hasItems(environmentAcc, environmentTest)));
+                .andExpect(model().attribute("environments", hasItems(new Environment("ACC"), new Environment("TST"))));
     }
 
     @Test
@@ -76,25 +72,31 @@ public class EnvironmentControllerIntegrationTest {
 
     @Test
     public void editEnvironmentForm() throws Exception {
-        mockMvc.perform(get("/servers/environment/{id}", 1L))
+        Environment environment = environmentRepository.save(new Environment("ACC"));
+
+        mockMvc.perform(get("/servers/environment/{id}", environment.getId()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("environment/createEditEnvironment"))
-                .andExpect(model().attribute("environment", hasProperty("id", is(1L))))
-                .andExpect(model().attribute("environment", hasProperty("name", is("ACC"))));
+                .andExpect(model().attribute("environment", hasProperty("id", is(environment.getId()))))
+                .andExpect(model().attribute("environment", hasProperty("name", is(environment.getName()))));
     }
 
     @Test
     public void testEditEnvironment() throws Exception {
-        mockMvc.perform(put("/servers/environment/2")
-                .param("name", "TST")
-                .param("description", "Edit: Test environment"))
+        Environment environment = environmentRepository.save(new Environment("ACC"));
+
+        mockMvc.perform(put("/servers/environment/" + environment.getId())
+                .param("name", "ACC")
+                .param("description", "Edit: ACC environment"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/servers/environment"));
     }
 
     @Test
     public void testDeleteEnvironment() throws Exception {
-        mockMvc.perform(get("/servers/environment/1/delete"))
+        Environment environment = environmentRepository.save(new Environment("ACC"));
+
+        mockMvc.perform(get("/servers/environment/" + environment.getId() + "/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/servers/environment"));
     }

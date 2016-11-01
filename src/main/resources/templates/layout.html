@@ -2,7 +2,7 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="layout :: head">
+<head th:fragment="head">
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta name="description" content="Overview of the different servers in your application development landscape and its deployed applications"/>
@@ -11,20 +11,37 @@
 	<title>ServerViewer</title>
 
 	<!-- Bootstrap Core CSS -->
-	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
 	<!-- Font Awesome CSS -->
-	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+	th:href="@{/webjars/font-awesome/4.6.3/css/font-awesome.min.css}"/>
+	<!-- Datatable CSS -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"
+	th:href="@{webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css}"/>
 	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="../../static/css/serverviewer.css"/>
+	<link rel="stylesheet" type="text/css" href="../../static/css/serverviewer.css"
+	th:href="@{/css/serverviewer.css}"/>
 </head>
 
 <body>
 	<!-- Header -->
-	<header th:replace="layout :: header"/>
+	<header class="main-header" th:fragment="header">
+
+		<a class="sidebar-toggle" href="#" id="menu-toggle" role="button">
+			<i class="fa fa-bars"></i>
+		</a>
+
+		<!-- Logo -->
+		<a href="#" class="title">
+			<span><b>ServerViewer</b></span>
+		</a>
+
+	</header>
 
 	<div id="wrapper" class="toggled">
 		<!-- Sidebar -->
-		<div id="sidebar-wrapper">
+		<div id="sidebar-wrapper" th:fragment="sidebar">
 			<ul class="sidebar-menu">
 				<li>
 					<a href="#">
@@ -51,7 +68,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="'environment/environment.html" th:href="@{/servers/environment}">
+							<a href="./environment/environment.html" th:href="@{/servers/environment}">
 								<i class="fa fa-globe" aria-hidden="true"></i>
 								<span>Environment</span>
 							</a>
@@ -95,45 +112,12 @@
 		<div id="page-content-wrapper">
 			<div class="container-fluid">
 				<div class="row">
-					<div class="col-lg-6">
-						
-						<div class="box box-info">
-							
-							<div class="box-header with-border">
-								<h3 class="box-title" th:text="${environment['new']} ? 'Create Environment' : 'Edit Environment'">Create Environment</h3>
-							</div>
-
-							<form th:object="${environment}" th:action="'#'" action="#"
-							method="post" th:method="${environment['new']} ? 'post' : 'put'" 
-							class="form-horizontal">
-								<div class="box-body">
-									<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'error'">
-										<label for="name" class="col-sm-2 control-label">Name</label>
-
-										<div class="col-sm-10">
-											<input type="text" class="form-control" id="name" th:field="*{name}" th:readonly="${environment['new']} == false"/>
-											<span class="help-inline" th:errors="*{name}">[error]</span>
-										</div>
-									</div>
-									<div class="form-group"  th:classappend="${#fields.hasErrors('description')} ? 'error'">
-										<label for="description" class="col-sm-2 control-label">Description</label>
-
-										<div class="col-sm-10">
-											<input type="text" class="form-control" id="description" th:field="*{description}"/>
-											<span class="help-inline" th:errors="*{description}">[error]</span>
-										</div>
-									</div>
-								</div>
-								
-								<div class="box-footer">
-									<button type="submit" class="btn btn-default">Cancel</button>
-									<button type="submit" class="btn btn-info pull-right">Save</button>
-								</div>
-							</form>
-						</div>
+					<div class="col-lg-12">
+						<h1>Server viewer</h1>
 					</div>
 				</div>
 			</div>
+
 		</div>
 
 	</div>
