@@ -1,0 +1,4 @@
+<dataset>
+    <operating_system id="1" name="RHEL 5 (32 bit)" description="Redhat Enterprise Linux 5 (32 bit)"/>
+    <operating_system id="2" name="Windows Server 2008 R2 standard" description="Windows Server 2008 R2 standard"/>
+</dataset>
