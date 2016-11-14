@@ -1,0 +1,4 @@
+<dataset>
+    <cluster id="1" name="B2B PRD Cluster" description="B2B production cluster"/>
+    <cluster id="2" name="B2B ACC Cluster" description="B2B acceptance cluster"/>
+</dataset>

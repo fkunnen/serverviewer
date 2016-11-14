@@ -6,8 +6,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "operating_system")
-public class OperatingSystem implements Persistable<Long> {
+@Table(name = "cluster")
+public class Cluster implements Persistable<Long> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +19,9 @@ public class OperatingSystem implements Persistable<Long> {
     @Column
     private String description;
 
-    public OperatingSystem(){}
+    public Cluster(){}
 
-    public OperatingSystem(String name){
+    public Cluster(String name){
         this.name = name;
     }
 
@@ -60,8 +60,8 @@ public class OperatingSystem implements Persistable<Long> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OperatingSystem operatingSystem = (OperatingSystem) o;
-        return Objects.equals(name, operatingSystem.name);
+        Cluster cluster = (Cluster) o;
+        return Objects.equals(name, cluster.name);
     }
 
     @Override
