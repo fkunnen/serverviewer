@@ -1,0 +1,4 @@
+<dataset>
+    <server_type id="1" name="Hardware Server" description="Hardware server"/>
+    <server_type id="2" name="Virtual Server" description="Virtual server"/>
+</dataset>

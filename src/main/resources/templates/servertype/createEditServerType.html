@@ -36,18 +36,18 @@
 						<div class="box box-info">
 							
 							<div class="box-header with-border">
-								<h3 class="box-title" th:text="${operatingSystem['new']} ? 'Create Operating System' : 'Edit Operating System'">Create Operating System</h3>
+								<h3 class="box-title" th:text="${serverType['new']} ? 'Create Server Type' : 'Edit Server Type'">Create Server Type</h3>
 							</div>
 
-							<form th:object="${operatingSystem}" th:action="'#'" action="#"
-							method="post" th:method="${operatingSystem['new']} ? 'post' : 'put'"
+							<form th:object="${serverType}" th:action="'#'" action="#"
+							method="post" th:method="${serverType['new']} ? 'post' : 'put'"
 							class="form-horizontal">
 								<div class="box-body">
 									<div class="form-group" th:classappend="${#fields.hasErrors('name')} ? 'error'">
 										<label for="name" class="col-sm-2 control-label">Name</label>
 
 										<div class="col-sm-10">
-											<input type="text" class="form-control" id="name" th:field="*{name}" th:readonly="${operatingSystem['new']} == false"/>
+											<input type="text" class="form-control" id="name" th:field="*{name}" th:readonly="${serverType['new']} == false"/>
 											<span class="help-inline" th:errors="*{name}">[error]</span>
 										</div>
 									</div>
@@ -62,7 +62,7 @@
 								</div>
 								
 								<div class="box-footer">
-									<a href="operatingSystem.html" th:href="@{/servers/operatingsystem}" class="btn btn-default">Cancel</a>
+									<a href="serverType.html" th:href="@{/servers/servertype}" class="btn btn-default">Cancel</a>
 									<button type="submit" class="btn btn-info pull-right">Save</button>
 								</div>
 							</form>

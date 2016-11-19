@@ -1,0 +1,16 @@
+CREATE TABLE `server_viewer`.`server` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `type_id` INT NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `code` VARCHAR(45) NOT NULL,
+  `hostname` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(100) NULL,
+  `location_id` INT NULL,
+  `environment_id` INT NULL,
+  `operating_system_id` INT NULL,
+  `cluster_id` INT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC),
+  UNIQUE INDEX `code_UNIQUE` (`code` ASC),
+  UNIQUE INDEX `hostname_UNIQUE` (`hostname` ASC));

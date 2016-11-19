@@ -1,6 +1,5 @@
 package be.cegeka.serverviewer.applications;
 
-import be.cegeka.serverviewer.servers.Environment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
