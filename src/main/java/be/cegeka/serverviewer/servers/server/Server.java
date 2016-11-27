@@ -8,6 +8,7 @@ import be.cegeka.serverviewer.servers.servertype.ServerType;
 import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity(name = "server")
 public class Server implements Persistable<Long> {
@@ -16,8 +17,9 @@ public class Server implements Persistable<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column
-    private ServerType type;
+    @ManyToOne
+    @JoinColumn(name="type_id")
+    private ServerType serverType;
 
     @Column
     private String name;
@@ -31,17 +33,27 @@ public class Server implements Persistable<Long> {
     @Column
     private String description;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="location_id")
     private Location location;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="environment_id")
     private Environment environment;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="operating_system_id")
     private OperatingSystem operatingSystem;
 
-    @Column
+    @ManyToOne
+    @JoinColumn(name="cluster_id")
     private Cluster cluster;
+
+    public Server(){}
+
+    public Server(String name){
+        this.name = name;
+    }
 
     @Override
     public Long getId() {
@@ -53,12 +65,12 @@ public class Server implements Persistable<Long> {
         return id == null;
     }
 
-    public ServerType getType() {
-        return type;
+    public ServerType getServerType() {
+        return serverType;
     }
 
-    public void setType(ServerType type) {
-        this.type = type;
+    public void setServerType(ServerType serverType) {
+        this.serverType = serverType;
     }
 
     public String getName() {
@@ -123,5 +135,23 @@ public class Server implements Persistable<Long> {
 
     public void setCluster(Cluster cluster) {
         this.cluster = cluster;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Server server = (Server) o;
+        return Objects.equals(name, server.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
     }
 }

@@ -74,7 +74,7 @@ public class ServerTypeValidatorTest {
 
         Assertions.assertThat(errors.hasErrors()).isTrue();
         Assertions.assertThat(errors.getFieldError().getField()).isEqualTo("name");
-        Assertions.assertThat(errors.getFieldError("name").getDefaultMessage()).isEqualTo("A server type with name 'Hardwre Server' already exists");
+        Assertions.assertThat(errors.getFieldError("name").getDefaultMessage()).isEqualTo("A server type with name 'Hardware Server' already exists");
     }
 
     @Test

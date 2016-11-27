@@ -11,16 +11,16 @@
 	<title>ServerViewer</title>
 
 	<!-- Bootstrap Core CSS -->
-	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
+	<link rel="stylesheet" serverType="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css"
 	th:href="@{/webjars/bootstrap/3.3.6/css/bootstrap.min.css}"/>
 	<!-- Font Awesome CSS -->
-	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
+	<link rel="stylesheet" serverType="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"
 	th:href="@{/webjars/font-awesome/4.6.3/css/font-awesome.min.css}"/>
 	<!-- Datatable CSS -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"
+	<link rel="stylesheet" serverType="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"
 	th:href="@{webjars/datatables/1.10.12/css/dataTables.bootstrap.min.css}"/>
 	<!-- Custom CSS -->
-	<link rel="stylesheet" type="text/css" href="../static/css/serverviewer.css"
+	<link rel="stylesheet" serverType="text/css" href="../static/css/serverviewer.css"
 	th:href="@{/css/serverviewer.css}"/>
 </head>
 
@@ -62,7 +62,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="./server/server.html" th:href="@{/servers/server}">
 								<i class="fa fa-cube" aria-hidden="true"></i>
 								<span>Server</span>
 							</a>
