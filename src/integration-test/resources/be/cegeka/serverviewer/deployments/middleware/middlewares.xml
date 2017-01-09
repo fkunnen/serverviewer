@@ -1,0 +1,4 @@
+<dataset>
+    <middleware id="1" name="Weblogic 12c" description="Oracle WebLogic Server 12.2.1.2"/>
+    <middleware id="2" name="Weblogic 11g" description="Oracle WebLogic Server 11g (10.3.6)"/>
+</dataset>
