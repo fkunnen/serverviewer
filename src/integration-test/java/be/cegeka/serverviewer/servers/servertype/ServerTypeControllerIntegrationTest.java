@@ -38,7 +38,7 @@ public class ServerTypeControllerIntegrationTest {
         mockMvc.perform(get("/servers/servertype")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("servertype/servertype"))
+                .andExpect(view().name("servers/servertype/servertype"))
                 .andExpect(model().attribute("serverTypes", hasItems(new ServerType("Hardware Server"), new ServerType("Virtual Server"))));
     }
 
@@ -48,7 +48,7 @@ public class ServerTypeControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/servertype/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("servertype/createEditServerType"))
+                .andExpect(view().name("servers/servertype/createEditServerType"))
                 .andExpect(model().attribute("serverType", is(emptyServerType)));
     }
 
@@ -67,7 +67,7 @@ public class ServerTypeControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/servertype/{id}", 1L))
                 .andExpect(status().isOk())
-                .andExpect(view().name("servertype/createEditServerType"))
+                .andExpect(view().name("servers/servertype/createEditServerType"))
                 .andExpect(model().attribute("serverType", hasProperty("id", is(1L))))
                 .andExpect(model().attribute("serverType", hasProperty("name", is("Hardware Server"))));
     }

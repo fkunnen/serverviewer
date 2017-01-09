@@ -21,20 +21,20 @@ public class ClusterController {
     @RequestMapping(value = "/servers/cluster", method = RequestMethod.GET)
     public String getAllClusters(Model model) {
         model.addAttribute("clusters", clusterRepository.findAll());
-        return "cluster/cluster";
+        return "servers/cluster/cluster";
     }
 
     @RequestMapping(value= "/servers/cluster/create", method = RequestMethod.GET)
     public String createClusterForm(Model model){
         model.addAttribute("cluster", new Cluster());
-        return "cluster/createEditCluster";
+        return "servers/cluster/createEditCluster";
     }
 
     @RequestMapping(value = "/servers/cluster/create", method = RequestMethod.POST)
     public String createCluster(@ModelAttribute("cluster") Cluster cluster, BindingResult bindingResult) {
         clusterValidator.validate(cluster, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "cluster/createEditCluster";
+            return "servers/cluster/createEditCluster";
         }
         clusterRepository.save(cluster);
         return "redirect:/servers/cluster";
@@ -43,7 +43,7 @@ public class ClusterController {
     @RequestMapping(value = "/servers/cluster/{id}", method = RequestMethod.GET)
     public String editClusterForm(@PathVariable("id") long id, Model model){
         model.addAttribute("cluster", clusterRepository.findOne(id));
-        return "cluster/createEditCluster";
+        return "servers/cluster/createEditCluster";
     }
 
     @RequestMapping(value = "/servers/cluster/{id}", method = RequestMethod.PUT)
@@ -52,7 +52,7 @@ public class ClusterController {
         cluster.setDescription(clusterDTO.getDescription());
         clusterValidator.validate(cluster, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "cluster/createEditCluster";
+            return "server/cluster/createEditCluster";
         }
         clusterRepository.save(cluster);
         return "redirect:/servers/cluster";

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: head">
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content="Overview of the different servers in your application development landscape and its deployed applications"/>
+	<meta name="author" context="fkunnen"/>
+
+	<title>ServerViewer</title>
+
+	<!-- Bootstrap Core CSS -->
+	<link rel="stylesheet" serverType="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<!-- Font Awesome CSS -->
+	<link rel="stylesheet" serverType="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+	<!-- Datatable CSS -->
+	<link rel="stylesheet" serverType="text/css" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css"/>
+	<!-- Custom CSS -->
+	<link rel="stylesheet" serverType="text/css" href="../../static/css/serverviewer.css"/>
+</head>
+
+<body>
+	
+	<header th:replace="layout :: header"/>
+
+	<div id="wrapper" class="toggled">
+		<div th:replace="layout :: sidebar"/>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div class="container-fluid row col-lg-12">
+						
+				<div class="box box-info">
+					
+					<div class="box-header with-border">
+						<h3 class="box-title">Applications</h3>
+						<span class="box-title-btn">
+							<a href="createEditLocation.html" th:href="@{/applications/create}" class="btn btn-success">
+								<i class="fa fa-plus"></i> Add application
+							</a>
+						</span>
+					</div>
+
+					<div class="box-body">
+						<table id="applications_table" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Name</th>
+									<th>Description</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody th:remove="all-but-first">
+								<tr th:each="application : ${applications}">
+									<td class="nowrap" th:text="${application.id}">0</td>
+									<td th:text="${application.name}">eDossier</td>
+									<td th:text="${application.description}">eDossier</td>
+									<td class="nowrap">
+										<a href="createEditLocation.html" th:href="@{|/applications/${application.id}|}" class="btn btn-primary">
+											<i class="fa fa-edit"></i> Edit
+										</a>
+										<a href="application.html" th:href="@{|/applications/${application.id}/delete|}" class="btn btn-danger">
+											<i class="fa fa-trash-o"></i> Delete
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>1</td>
+									<td>Postkamer</td>
+									<td>Postkamer</td>
+									<td>
+										<button class="btn btn-primary" onclick=""><i class="fa fa-edit"></i> Edit</button>
+										<button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> Delete</button>
+									</td>
+								</tr>
+								<tr>
+									<td>2</td>
+									<td>B2B</td>
+									<td>B2B</td>
+									<td>
+										<button class="btn btn-primary" onclick=""><i class="fa fa-edit"></i> Edit</button>
+										<button class="btn btn-danger" onclick=""><i class="fa fa-trash-o"></i> Delete</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Bootstrap JavaScript -->
+	<script src="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/js/bootstrap.min.js"
+	th:src="@{/webjars/bootstrap/3.3.6/js/bootstrap.min.js}"></script>
+
+	<!-- JQuery JavaScript -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"
+	th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+	<!-- DataTables -->
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"
+	th:src="@{/webjars/datatables/1.10.12/js/jquery.dataTables.min.js}"></script>
+	<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"
+	th:src="@{webjars/datatables/1.10.12/js/dataTables.bootstrap.min.js}"></script>
+
+	<!-- Menu Toggle Script -->
+	<script>
+		$('#menu-toggle').click(function(e) {
+			e.preventDefault();
+			$('#wrapper').toggleClass("toggled");
+		});
+	</script>
+
+	<script>
+		$(function () {
+    		$('#applications_table').DataTable({
+				"paging": false, "lengthChange": false, "searching": false, "ordering": true, "info": false, "autoWidth": false
+			});
+  		});
+	</script>
+</body>
+
+</html>

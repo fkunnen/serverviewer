@@ -21,20 +21,20 @@ public class ApplicationController {
     @RequestMapping(value = "/applications", method = RequestMethod.GET)
     public String getAllApplications(Model model) {
         model.addAttribute("applications", applicationRepository.findAll());
-        return "application/application";
+        return "applications/application";
     }
 
     @RequestMapping(value= "/applications/create", method = RequestMethod.GET)
     public String createApplicationForm(Model model){
         model.addAttribute("app", new Application());
-        return "application/createEditApplication";
+        return "applications/createEditApplication";
     }
 
     @RequestMapping(value = "/applications/create", method = RequestMethod.POST)
     public String createApplication(@ModelAttribute("app") Application application, BindingResult bindingResult) {
         applicationValidator.validate(application, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "application/createEditApplication";
+            return "applications/createEditApplication";
         }
         applicationRepository.save(application);
         return "redirect:/applications";
@@ -43,7 +43,7 @@ public class ApplicationController {
     @RequestMapping(value = "/applications/{id}", method = RequestMethod.GET)
     public String editApplicationForm(@PathVariable("id") long id, Model model){
         model.addAttribute("app", applicationRepository.findOne(id));
-        return "application/createEditApplication";
+        return "applications/createEditApplication";
     }
 
     @RequestMapping(value = "/applications/{id}", method = RequestMethod.PUT)
@@ -52,7 +52,7 @@ public class ApplicationController {
         application.setDescription(applicationDTO.getDescription());
         applicationValidator.validate(application, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "application/createEditApplication";
+            return "applications/createEditApplication";
         }
         applicationRepository.save(application);
         return "redirect:/applications";

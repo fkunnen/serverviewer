@@ -40,7 +40,7 @@ public class ClusterControllerIntegrationTest {
         mockMvc.perform(get("/servers/cluster")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("cluster/cluster"))
+                .andExpect(view().name("servers/cluster/cluster"))
                 .andExpect(model().attribute("clusters", hasItems(new Cluster("B2B PRD Cluster"), new Cluster("B2B ACC Cluster"))));
     }
 
@@ -50,7 +50,7 @@ public class ClusterControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/cluster/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("cluster/createEditCluster"))
+                .andExpect(view().name("servers/cluster/createEditCluster"))
                 .andExpect(model().attribute("cluster", is(emptyCluster)));
     }
 
@@ -69,7 +69,7 @@ public class ClusterControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/cluster/{id}", 1L))
                 .andExpect(status().isOk())
-                .andExpect(view().name("cluster/createEditCluster"))
+                .andExpect(view().name("servers/cluster/createEditCluster"))
                 .andExpect(model().attribute("cluster", hasProperty("id", is(1L))))
                 .andExpect(model().attribute("cluster", hasProperty("name", is("B2B PRD Cluster"))));
     }

@@ -30,7 +30,7 @@ public class ApplicationValidator implements Validator {
     private void validateApplicationName(Errors errors, Application application) {
         String name = application.getName();
         if (StringUtils.isEmpty(name)) {
-            errors.rejectValue("name", "application.name.required", "Application name is mandatory");
+            errors.rejectValue("name", "applications.name.required", "Application name is mandatory");
             return;
         }
 
@@ -39,16 +39,16 @@ public class ApplicationValidator implements Validator {
             if (applications.contains(application)) {
                 errors.rejectValue(
                         "name",
-                        "application.name.unique",
+                        "applications.name.unique",
                         new Object[]{name},
-                        "An application with name '" + name + "' already exists"
+                        "An applications with name '" + name + "' already exists"
                 );
                 return;
             }
         }
 
         if (name.length() > 45){
-            errors.rejectValue("name", "application.name.length", "The name of this application is too long");
+            errors.rejectValue("name", "applications.name.length", "The name of this applications is too long");
             return;
         }
     }
@@ -58,8 +58,8 @@ public class ApplicationValidator implements Validator {
         if (StringUtils.isNotEmpty(description) && description.length() > 100){
             errors.rejectValue(
                     "description",
-                    "application.description.length",
-                    "The description of this application is too long"
+                    "applications.description.length",
+                    "The description of this applications is too long"
             );
         }
     }

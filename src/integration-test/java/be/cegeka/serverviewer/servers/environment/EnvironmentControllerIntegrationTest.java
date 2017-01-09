@@ -46,7 +46,7 @@ public class EnvironmentControllerIntegrationTest {
         mockMvc.perform(get("/servers/environment")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("environment/environment"))
+                .andExpect(view().name("servers/environment/environment"))
                 .andExpect(model().attribute("environments", hasItems(new Environment("ACC"), new Environment("TST"))));
     }
 
@@ -56,7 +56,7 @@ public class EnvironmentControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/environment/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("environment/createEditEnvironment"))
+                .andExpect(view().name("servers/environment/createEditEnvironment"))
                 .andExpect(model().attribute("environment", is(emptyEnvironment)));
     }
 
@@ -75,7 +75,7 @@ public class EnvironmentControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/environment/{id}", 1L))
                 .andExpect(status().isOk())
-                .andExpect(view().name("environment/createEditEnvironment"))
+                .andExpect(view().name("servers/environment/createEditEnvironment"))
                 .andExpect(model().attribute("environment", hasProperty("id", is(1L))))
                 .andExpect(model().attribute("environment", hasProperty("name", is("ACC"))));
     }

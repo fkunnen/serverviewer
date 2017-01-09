@@ -1,0 +1,4 @@
+<dataset>
+    <application id="1" name="eDossier" description="eDossier"/>
+    <application id="2" name="Postkamer" description="Postkamer"/>
+</dataset>

@@ -42,7 +42,7 @@ public class ServerControllerIntegrationTest {
         mockMvc.perform(get("/servers/server")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("server/server"))
+                .andExpect(view().name("servers/server/server"))
                 .andExpect(model().attribute("servers", hasItems(new Server("B2B PRD 1"), new Server("B2B PRD 2"))));
     }
 
@@ -52,7 +52,7 @@ public class ServerControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/server/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("server/createEditServer"))
+                .andExpect(view().name("servers/server/createEditServer"))
                 .andExpect(model().attribute("server", is(emptyServer)));
     }
 
@@ -77,9 +77,9 @@ public class ServerControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/server/{id}", 1L))
                 .andExpect(status().isOk())
-                .andExpect(view().name("server/createEditServer"))
+                .andExpect(view().name("servers/server/createEditServer"))
                 .andExpect(model().attribute("server", hasProperty("id", is(1L))))
-                .andExpect(model().attribute("server", hasProperty("name", is("CGK.Leuven"))));
+                .andExpect(model().attribute("server", hasProperty("name", is("B2B PRD 1"))));
     }
 
     @Test

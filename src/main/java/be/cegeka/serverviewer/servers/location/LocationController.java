@@ -21,20 +21,20 @@ public class LocationController {
     @RequestMapping(value = "/servers/location", method = RequestMethod.GET)
     public String getAllLocations(Model model) {
         model.addAttribute("locations", locationRepository.findAll());
-        return "location/location";
+        return "servers/location/location";
     }
 
     @RequestMapping(value= "/servers/location/create", method = RequestMethod.GET)
     public String createLocationForm(Model model){
         model.addAttribute("location", new Location());
-        return "location/createEditLocation";
+        return "servers/location/createEditLocation";
     }
 
     @RequestMapping(value = "/servers/location/create", method = RequestMethod.POST)
     public String createLocation(@ModelAttribute("location") Location location, BindingResult bindingResult) {
         locationValidator.validate(location, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "location/createEditLocation";
+            return "servers/location/createEditLocation";
         }
         locationRepository.save(location);
         return "redirect:/servers/location";
@@ -43,7 +43,7 @@ public class LocationController {
     @RequestMapping(value = "/servers/location/{id}", method = RequestMethod.GET)
     public String editLocationForm(@PathVariable("id") long id, Model model){
         model.addAttribute("location", locationRepository.findOne(id));
-        return "location/createEditLocation";
+        return "servers/location/createEditLocation";
     }
 
     @RequestMapping(value = "/servers/location/{id}", method = RequestMethod.PUT)
@@ -52,7 +52,7 @@ public class LocationController {
         location.setDescription(locationDTO.getDescription());
         locationValidator.validate(location, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "location/createEditLocation";
+            return "servers/location/createEditLocation";
         }
         locationRepository.save(location);
         return "redirect:/servers/location";

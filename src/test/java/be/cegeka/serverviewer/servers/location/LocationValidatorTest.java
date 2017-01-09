@@ -61,7 +61,7 @@ public class LocationValidatorTest {
 
         Assertions.assertThat(errors.hasErrors()).isTrue();
         Assertions.assertThat(errors.getFieldError().getField()).isEqualTo("name");
-        Assertions.assertThat(errors.getFieldError("name").getDefaultMessage()).isEqualTo("Location name is mandatory");
+        Assertions.assertThat(errors.getFieldError("name").getDefaultMessage()).isEqualTo("Middleware name is mandatory");
     }
 
     @Test

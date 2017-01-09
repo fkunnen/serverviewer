@@ -24,20 +24,20 @@ public class ServerTypeController {
     @RequestMapping(value = "/servers/servertype", method = RequestMethod.GET)
     public String getAllServerTypes(Model model) {
         model.addAttribute("serverTypes", serverTypeRepository.findAll());
-        return "servertype/servertype";
+        return "servers/servertype/servertype";
     }
 
     @RequestMapping(value= "/servers/servertype/create", method = RequestMethod.GET)
     public String createServerTypeForm(Model model){
         model.addAttribute("serverType", new ServerType());
-        return "servertype/createEditServerType";
+        return "servers/servertype/createEditServerType";
     }
 
     @RequestMapping(value = "/servers/servertype/create", method = RequestMethod.POST)
     public String createServerType(@ModelAttribute("serverType") ServerType serverType, BindingResult bindingResult) {
         serverTypeValidator.validate(serverType, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "serverType/createEditServerType";
+            return "servers/serverType/createEditServerType";
         }
         serverTypeRepository.save(serverType);
         return "redirect:/servers/servertype";
@@ -46,7 +46,7 @@ public class ServerTypeController {
     @RequestMapping(value = "/servers/servertype/{id}", method = RequestMethod.GET)
     public String editServerTypeForm(@PathVariable("id") long id, Model model){
         model.addAttribute("serverType", serverTypeRepository.findOne(id));
-        return "servertype/createEditServerType";
+        return "servers/servertype/createEditServerType";
     }
 
     @RequestMapping(value = "/servers/servertype/{id}", method = RequestMethod.PUT)
@@ -55,7 +55,7 @@ public class ServerTypeController {
         serverType.setDescription(serverTypeDTO.getDescription());
         serverTypeValidator.validate(serverType, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "servertype/createEditServerType";
+            return "servers/servertype/createEditServerType";
         }
         serverTypeRepository.save(serverType);
         return "redirect:/servers/servertype";

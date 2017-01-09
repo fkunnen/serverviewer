@@ -23,20 +23,20 @@ public class EnvironmentController {
     @RequestMapping(value = "/servers/environment", method = RequestMethod.GET)
     public String getAllEnvironments(Model model) {
         model.addAttribute("environments", environmentRepository.findAll());
-        return "environment/environment";
+        return "servers/environment/environment";
     }
 
     @RequestMapping(value= "/servers/environment/create", method = RequestMethod.GET)
     public String createEnvironmentForm(Model model){
         model.addAttribute("environment", new Environment());
-        return "environment/createEditEnvironment";
+        return "servers/environment/createEditEnvironment";
     }
 
     @RequestMapping(value = "/servers/environment/create", method = RequestMethod.POST)
     public String createEnvironment(@ModelAttribute("environment") Environment environment, BindingResult bindingResult) {
         environmentValidator.validate(environment, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "environment/createEditEnvironment";
+            return "servers/environment/createEditEnvironment";
         }
         environmentRepository.save(environment);
         return "redirect:/servers/environment";
@@ -45,7 +45,7 @@ public class EnvironmentController {
     @RequestMapping(value = "/servers/environment/{id}", method = RequestMethod.GET)
     public String editEnvironmentForm(@PathVariable("id") long id, Model model){
         model.addAttribute("environment", environmentRepository.findOne(id));
-        return "environment/createEditEnvironment";
+        return "servers/environment/createEditEnvironment";
     }
 
     @RequestMapping(value = "/servers/environment/{id}", method = RequestMethod.PUT)
@@ -54,7 +54,7 @@ public class EnvironmentController {
         environment.setDescription(environmentDTO.getDescription());
         environmentValidator.validate(environment, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "environment/createEditEnvironment";
+            return "servers/environment/createEditEnvironment";
         }
         environmentRepository.save(environment);
         return "redirect:/servers/environment";

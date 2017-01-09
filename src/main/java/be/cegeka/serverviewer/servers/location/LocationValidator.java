@@ -30,7 +30,7 @@ public class LocationValidator implements Validator {
     private void validateLocationName(Errors errors, Location location) {
         String name = location.getName();
         if (StringUtils.isEmpty(name)) {
-            errors.rejectValue("name", "location.name.required", "Location name is mandatory");
+            errors.rejectValue("name", "location.name.required", "Middleware name is mandatory");
             return;
         }
 

@@ -38,7 +38,7 @@ public class OperatingSystemControllerIntegrationTest {
         mockMvc.perform(get("/servers/operatingsystem")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("operatingsystem/operatingsystem"))
+                .andExpect(view().name("servers/operatingsystem/operatingsystem"))
                 .andExpect(model().attribute("operatingSystems", hasItems(new OperatingSystem("RHEL 5 (32 bit)"), new OperatingSystem("Windows Server 2008 R2 standard"))));
     }
 
@@ -48,7 +48,7 @@ public class OperatingSystemControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/operatingsystem/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("operatingsystem/createEditOperatingSystem"))
+                .andExpect(view().name("servers/operatingsystem/createEditOperatingSystem"))
                 .andExpect(model().attribute("operatingSystem", is(emptyOperatingSystem)));
     }
 
@@ -67,7 +67,7 @@ public class OperatingSystemControllerIntegrationTest {
 
         mockMvc.perform(get("/servers/operatingsystem/{id}", 1L))
                 .andExpect(status().isOk())
-                .andExpect(view().name("operatingsystem/createEditOperatingSystem"))
+                .andExpect(view().name("servers/operatingsystem/createEditOperatingSystem"))
                 .andExpect(model().attribute("operatingSystem", hasProperty("id", is(1L))))
                 .andExpect(model().attribute("operatingSystem", hasProperty("name", is("RHEL 5 (32 bit)"))));
     }

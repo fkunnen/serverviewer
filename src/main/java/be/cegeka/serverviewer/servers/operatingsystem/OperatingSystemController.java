@@ -21,20 +21,20 @@ public class OperatingSystemController {
     @RequestMapping(value = "/servers/operatingsystem", method = RequestMethod.GET)
     public String getAllOperatingSystems(Model model) {
         model.addAttribute("operatingSystems", operatingSystemRepository.findAll());
-        return "operatingsystem/operatingsystem";
+        return "servers/operatingsystem/operatingsystem";
     }
 
     @RequestMapping(value= "/servers/operatingsystem/create", method = RequestMethod.GET)
     public String createOperatingSystemForm(Model model){
         model.addAttribute("operatingSystem", new OperatingSystem());
-        return "operatingsystem/createEditOperatingSystem";
+        return "servers/operatingsystem/createEditOperatingSystem";
     }
 
     @RequestMapping(value = "/servers/operatingsystem/create", method = RequestMethod.POST)
     public String createOperatingSystem(@ModelAttribute("operatingSystem") OperatingSystem operatingSystem, BindingResult bindingResult) {
         operatingSystemValidator.validate(operatingSystem, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "operatingSystem/createEditOperatingSystem";
+            return "servers/operatingSystem/createEditOperatingSystem";
         }
         operatingSystemRepository.save(operatingSystem);
         return "redirect:/servers/operatingsystem";
@@ -43,7 +43,7 @@ public class OperatingSystemController {
     @RequestMapping(value = "/servers/operatingsystem/{id}", method = RequestMethod.GET)
     public String editOperatingSystemForm(@PathVariable("id") long id, Model model){
         model.addAttribute("operatingSystem", operatingSystemRepository.findOne(id));
-        return "operatingsystem/createEditOperatingSystem";
+        return "servers/operatingsystem/createEditOperatingSystem";
     }
 
     @RequestMapping(value = "/servers/operatingsystem/{id}", method = RequestMethod.PUT)
@@ -52,7 +52,7 @@ public class OperatingSystemController {
         operatingSystem.setDescription(operatingSystemDTO.getDescription());
         operatingSystemValidator.validate(operatingSystem, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "operatingsystem/createEditOperatingSystem";
+            return "servers/operatingsystem/createEditOperatingSystem";
         }
         operatingSystemRepository.save(operatingSystem);
         return "redirect:/servers/operatingsystem";

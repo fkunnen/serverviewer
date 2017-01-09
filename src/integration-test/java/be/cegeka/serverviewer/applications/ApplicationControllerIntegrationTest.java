@@ -1,7 +1,7 @@
-package be.cegeka.serverviewer.servers.location;
+package be.cegeka.serverviewer.applications;
 
+import be.cegeka.serverviewer.applications.Application;
 import be.cegeka.serverviewer.config.SpringWebApplication;
-import be.cegeka.serverviewer.servers.location.Location;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
@@ -26,67 +26,66 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, TransactionalTestExecutionListener.class, DbUnitTestExecutionListener.class })
-@DatabaseSetup("locations.xml")
-public class LocationControllerIntegrationTest {
+@DatabaseSetup("applications.xml")
+public class ApplicationControllerIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void testGetAllLocations() throws Exception {
+    public void testGetAllApplications() throws Exception {
 
-        mockMvc.perform(get("/servers/location")
+        mockMvc.perform(get("/applications")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
-                .andExpect(view().name("servers/location/location"))
-                .andExpect(model().attribute("locations", hasItems(new Location("CGK.Leuven"), new Location("CGK.Hasselt"))));
+                .andExpect(view().name("applications/application"))
+                .andExpect(model().attribute("applications", hasItems(new Application("eDossier"), new Application("Postkamer"))));
     }
 
     @Test
-    public void testCreateLocationForm() throws Exception {
-        Location emptyLocation = new Location();
+    public void testCreateApplicationForm() throws Exception {
 
-        mockMvc.perform(get("/servers/location/create"))
+        mockMvc.perform(get("/applications/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("servers/location/createEditLocation"))
-                .andExpect(model().attribute("location", is(emptyLocation)));
+                .andExpect(view().name("applications/createEditApplication"))
+                .andExpect(model().attribute("app", is(new Application())));
     }
 
     @Test
-    public void testCreateLocation() throws Exception {
+    public void testCreateApplication() throws Exception {
 
-        mockMvc.perform(post("/servers/location/create")
-                .param("name", "RSVZ")
-                .param("description", "RSVZ Brussel"))
+        mockMvc.perform(post("/applications/create")
+                .param("name", "B2B")
+                .param("description", "B2B Application"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/servers/location"));
+                .andExpect(redirectedUrl("/applications"));
     }
 
     @Test
-    public void editLocationForm() throws Exception {
+    public void editApplicationForm() throws Exception {
 
-        mockMvc.perform(get("/servers/location/{id}", 1L))
+        mockMvc.perform(get("/applications/{id}", 1L))
                 .andExpect(status().isOk())
-                .andExpect(view().name("servers/location/createEditLocation"))
-                .andExpect(model().attribute("location", hasProperty("id", is(1L))))
-                .andExpect(model().attribute("location", hasProperty("name", is("CGK.Leuven"))));
+                .andExpect(view().name("applications/createEditApplication"))
+                .andExpect(model().attribute("app", hasProperty("id", is(1L))))
+                .andExpect(model().attribute("app", hasProperty("name", is("eDossier"))));
     }
 
     @Test
-    public void testEditLocation() throws Exception {
+    public void testEditApplication() throws Exception {
 
-        mockMvc.perform(put("/servers/location/2")
-                .param("name", "CGK.Hasselt")
-                .param("description", "Edit: Cegeka Hasselt"))
+        mockMvc.perform(put("/applications/2")
+                .param("name", "Postkamer")
+                .param("description", "Edit: Postkamer"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/servers/location"));
+                .andExpect(redirectedUrl("/applications"));
     }
 
     @Test
-    public void testDeleteLocation() throws Exception {
+    public void testDeleteApplication() throws Exception {
 
-        mockMvc.perform(get("/servers/location/1/delete"))
+        mockMvc.perform(get("/applications/1/delete"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/servers/location"));
+                .andExpect(redirectedUrl("/applications"));
     }
 }

@@ -41,7 +41,7 @@ public class ServerController {
     @RequestMapping(value = "/servers/server", method = RequestMethod.GET)
     public String getAllServers(Model model) {
         model.addAttribute("servers", serverRepository.findAll());
-        return "server/server";
+        return "servers/server/server";
     }
 
     @RequestMapping(value= "/servers/server/create", method = RequestMethod.GET)
@@ -52,14 +52,14 @@ public class ServerController {
         model.addAttribute("environments", environmentRepository.findAll());
         model.addAttribute("operatingSystems", operatingSystemRepository.findAll());
         model.addAttribute("cluster", clusterRepository.findAll());
-        return "server/createEditServer";
+        return "servers/server/createEditServer";
     }
 
     @RequestMapping(value = "/servers/server/create", method = RequestMethod.POST)
     public String createServer(@ModelAttribute("server") Server server, BindingResult bindingResult) {
         serverValidator.validate(server, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "server/createEditServer";
+            return "servers/server/createEditServer";
         }
         serverRepository.save(server);
         return "redirect:/servers/server";
@@ -68,7 +68,7 @@ public class ServerController {
     @RequestMapping(value = "/servers/server/{id}", method = RequestMethod.GET)
     public String editServerForm(@PathVariable("id") long id, Model model){
         model.addAttribute("server", serverRepository.findOne(id));
-        return "server/createEditServer";
+        return "servers/server/createEditServer";
     }
 
     @RequestMapping(value = "/servers/server/{id}", method = RequestMethod.PUT)
@@ -77,7 +77,7 @@ public class ServerController {
         server.setDescription(serverDTO.getDescription());
         serverValidator.validate(server, bindingResult);
         if (bindingResult.hasFieldErrors()){
-            return "server/createEditServer";
+            return "servers/server/createEditServer";
         }
         serverRepository.save(server);
         return "redirect:/servers/server";
