@@ -1,5 +1,6 @@
 package be.cegeka.serverviewer.servers.server;
 
+import be.cegeka.serverviewer.servers.servertype.ServerType;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +24,18 @@ public class ServerValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Server server = (Server) target;
 
+        validateServerType(errors, server);
         validateServerName(errors, server);
+        validateServerCode(errors, server);
+        validateServerHostname(errors, server);
         validateServerDescription(errors, server);
+    }
+
+    private void validateServerType(Errors errors, Server server) {
+        ServerType serverType = server.getServerType();
+        if (serverType == null) {
+            errors.rejectValue("serverType", "server.type.required", "Server type is mandatory");
+        }
     }
 
     private void validateServerName(Errors errors, Server server) {
@@ -49,7 +60,56 @@ public class ServerValidator implements Validator {
 
         if (name.length() > 45) {
             errors.rejectValue("name", "server.name.length", "The name of this server is too long");
+        }
+    }
+
+    private void validateServerCode(Errors errors, Server server) {
+        String code = server.getCode();
+        if (StringUtils.isEmpty(code)) {
+            errors.rejectValue("code", "server.code.required", "Server code is mandatory");
             return;
+        }
+
+        if (server.isNew()) {
+            List<Server> servers = serverRepository.findByCode(code);
+            if (servers.contains(server)) {
+                errors.rejectValue(
+                        "code",
+                        "server.code.unique",
+                        new Object[]{code},
+                        "A server with code '" + code + "' already exists"
+                );
+                return;
+            }
+        }
+
+        if (code.length() > 45) {
+            errors.rejectValue("code", "server.code.length", "The code of this server is too long");
+        }
+    }
+
+    private void validateServerHostname(Errors errors, Server server) {
+        String hostname = server.getHostname();
+        if (StringUtils.isEmpty(hostname)) {
+            errors.rejectValue("hostname", "server.hostname.required", "Server hostname is mandatory");
+            return;
+        }
+
+        if (server.isNew()) {
+            List<Server> servers = serverRepository.findByHostname(hostname);
+            if (servers.contains(server)) {
+                errors.rejectValue(
+                        "hostname",
+                        "server.hostname.unique",
+                        new Object[]{hostname},
+                        "A server with hostname '" + hostname + "' already exists"
+                );
+                return;
+            }
+        }
+
+        if (hostname.length() > 45) {
+            errors.rejectValue("hostname", "server.hostname.length", "The hostname of this server is too long");
         }
     }
 
@@ -63,6 +123,5 @@ public class ServerValidator implements Validator {
             );
         }
     }
-
 
 }

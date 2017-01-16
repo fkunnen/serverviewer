@@ -47,11 +47,7 @@ public class ServerController {
     @RequestMapping(value= "/servers/server/create", method = RequestMethod.GET)
     public String createServerForm(Model model){
         model.addAttribute("server", new Server());
-        model.addAttribute("serverTypes", serverTypeRepository.findAll());
-        model.addAttribute("locations", locationRepository.findAll());
-        model.addAttribute("environments", environmentRepository.findAll());
-        model.addAttribute("operatingSystems", operatingSystemRepository.findAll());
-        model.addAttribute("cluster", clusterRepository.findAll());
+        addDependenciesAttributes(model);
         return "servers/server/createEditServer";
     }
 
@@ -68,13 +64,21 @@ public class ServerController {
     @RequestMapping(value = "/servers/server/{id}", method = RequestMethod.GET)
     public String editServerForm(@PathVariable("id") long id, Model model){
         model.addAttribute("server", serverRepository.findOne(id));
+        addDependenciesAttributes(model);
         return "servers/server/createEditServer";
     }
 
     @RequestMapping(value = "/servers/server/{id}", method = RequestMethod.PUT)
     public String editServer(@PathVariable("id") Long id, @ModelAttribute("server") Server serverDTO, BindingResult bindingResult){
         Server server = serverRepository.findOne(id);
+        server.setServerType(serverDTO.getServerType());
+        server.setCode(serverDTO.getCode());
+        server.setHostname(serverDTO.getHostname());
         server.setDescription(serverDTO.getDescription());
+        server.setLocation(serverDTO.getLocation());
+        server.setOperatingSystem(serverDTO.getOperatingSystem());
+        server.setEnvironment(serverDTO.getEnvironment());
+        server.setCluster(serverDTO.getCluster());
         serverValidator.validate(server, bindingResult);
         if (bindingResult.hasFieldErrors()){
             return "servers/server/createEditServer";
@@ -87,6 +91,14 @@ public class ServerController {
     public String deleteServer(@PathVariable("id") Long id){
         serverRepository.delete(id);
         return "redirect:/servers/server";
+    }
+
+    private void addDependenciesAttributes(Model model) {
+        model.addAttribute("serverTypes", serverTypeRepository.findAll());
+        model.addAttribute("locations", locationRepository.findAll());
+        model.addAttribute("environments", environmentRepository.findAll());
+        model.addAttribute("operatingSystems", operatingSystemRepository.findAll());
+        model.addAttribute("cluster", clusterRepository.findAll());
     }
 
 }

@@ -6,16 +6,16 @@
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<meta name="description" content="Overview of the different servers in your application development landscape and its deployed applications"/>
-	<meta name="author" context="fkunnen"/>
+	<meta name="author" content="fkunnen"/>
 
 	<title>ServerViewer</title>
 
 	<!-- Bootstrap Core CSS -->
-	<link rel="stylesheet" serverType="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css"/>
 	<!-- Font Awesome CSS -->
-	<link rel="stylesheet" serverType="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
 	<!-- Custom CSS -->
-	<link rel="stylesheet" serverType="text/css" href="../../static/css/serverviewer.css"/>
+	<link rel="stylesheet" type="text/css" href="../../static/css/serverviewer.css"/>
 </head>
 
 <body>
@@ -50,13 +50,31 @@
 								</div>
 							</div>
 
-							<div class="form-group" th:classappend="${#fields.hasErrors('serverType')} ? 'error'">
+							<div class="form-group">
 								<label for="serverType" class="col-sm-2 control-label">Type</label>
 
 								<div class="col-sm-10">
-									<select th:field="*{serverType}" id="serverType" class="form-control" th:readonly="${server['new']} == false">
-										<option th:each="type : ${serverTypes}" th:text="${type}" th:value="${type}">Virtual Server</option>
+									<select th:field="*{serverType}" id="serverType" class="form-control">
+										<option th:each="type : ${serverTypes}" th:text="${type.name}" th:value="${type.id}">Virtual Server</option>
 									</select>
+								</div>
+							</div>
+
+							<div class="form-group"  th:classappend="${#fields.hasErrors('code')} ? 'error'">
+								<label for="code" class="col-sm-2 control-label">Code</label>
+
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="code" th:field="*{code}"/>
+									<span class="help-inline" th:errors="*{code}">[error]</span>
+								</div>
+							</div>
+
+							<div class="form-group"  th:classappend="${#fields.hasErrors('hostname')} ? 'error'">
+								<label for="hostname" class="col-sm-2 control-label">Hostname</label>
+
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="hostname" th:field="*{hostname}"/>
+									<span class="help-inline" th:errors="*{hostname}">[error]</span>
 								</div>
 							</div>
 
@@ -64,15 +82,59 @@
 								<label for="description" class="col-sm-2 control-label">Description</label>
 
 								<div class="col-sm-10">
-									<input serverType="text" class="form-control" id="description" th:field="*{description}"/>
+									<input type="text" class="form-control" id="description" th:field="*{description}"/>
 									<span class="help-inline" th:errors="*{description}">[error]</span>
 								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="location" class="col-sm-2 control-label">Location</label>
+
+							<div class="col-sm-10">
+								<select th:field="*{location}" id="location" class="form-control" th:readonly="${server['new']} == false">
+									<option th:text="--" th:value="''">--</option>
+									<option th:each="loc : ${locations}" th:text="${loc.name}" th:value="${loc.id}">CGK.Leuven</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="environment" class="col-sm-2 control-label">Environment</label>
+
+							<div class="col-sm-10">
+								<select th:field="*{environment}" id="environment" class="form-control" th:readonly="${server['new']} == false">
+									<option th:text="--" th:value="''">--</option>
+									<option th:each="env : ${environments}" th:text="${env}" th:value="${env}">PRD</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="operatingSystem" class="col-sm-2 control-label">Operating System</label>
+
+							<div class="col-sm-10">
+								<select th:field="*{operatingSystem}" id="operatingSystem" class="form-control" th:readonly="${server['new']} == false">
+									<option th:text="--" th:value="''">--</option>
+									<option th:each="os : ${operatingSystems}" th:text="${os}" th:value="${os}">RHEL 5 (64 bit)</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="cluster" class="col-sm-2 control-label">Cluster</label>
+
+							<div class="col-sm-10">
+								<select th:field="*{cluster}" id="cluster" class="form-control" th:readonly="${server['new']} == false">
+									<option th:text="--" th:value="''">--</option>
+									<option th:each="clus : ${clusters}" th:text="${clus}" th:value="${clus}">RHEL 5 (64 bit)</option>
+								</select>
 							</div>
 						</div>
 						
 						<div class="box-footer">
 							<a href="server.html" th:href="@{/servers/server}" class="btn btn-default">Cancel</a>
-							<button serverType="submit" class="btn btn-info pull-right">Save</button>
+							<button type="submit" class="btn btn-info pull-right">Save</button>
 						</div>
 					</form>
 				</div>

@@ -1,5 +1,5 @@
 <dataset>
     <server_type id="1" name="Virtual Server" description="Virtual server"/>
-    <server id="1" name="B2B PRD 1" type_id="1" description="B2B PRD Weblogic Managed server 1"/>
-    <server id="2" name="B2B PRD 2" type_id="1" description="B2B PRD Weblogic Managed server 2"/>
+    <server id="1" name="B2B PRD 1" type_id="1" code="HI08553" hostname="SVRSVZPB2BAPP01" description="B2B PRD Weblogic Managed server 1"/>
+    <server id="2" name="B2B PRD 2" type_id="1" code="HI08554" hostname="SVRSVZPB2BAPP02" description="B2B PRD Weblogic Managed server 2"/>
 </dataset>
