@@ -49,7 +49,6 @@ public class OperatingSystemValidator implements Validator {
 
         if (name.length() > 45) {
             errors.rejectValue("name", "operatingSystem.name.length", "The name of this operating system is too long");
-            return;
         }
     }
 

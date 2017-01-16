@@ -49,7 +49,6 @@ public class EnvironmentValidator implements Validator {
 
         if (name.length() > 45){
             errors.rejectValue("name", "environment.name.length", "The name of this environment is too long");
-            return;
         }
     }
 

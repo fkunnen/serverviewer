@@ -49,7 +49,6 @@ public class ApplicationValidator implements Validator {
 
         if (name.length() > 45){
             errors.rejectValue("name", "applications.name.length", "The name of this applications is too long");
-            return;
         }
     }
 

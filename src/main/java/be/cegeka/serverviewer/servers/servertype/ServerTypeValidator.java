@@ -49,7 +49,6 @@ public class ServerTypeValidator implements Validator {
 
         if (name.length() > 45) {
             errors.rejectValue("name", "serverType.name.length", "The name of this server type is too long");
-            return;
         }
     }
 

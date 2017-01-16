@@ -49,7 +49,6 @@ public class LocationValidator implements Validator {
 
         if (name.length() > 45) {
             errors.rejectValue("name", "location.name.length", "The name of this location is too long");
-            return;
         }
     }
 

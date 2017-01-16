@@ -10,7 +10,6 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,8 +38,6 @@ public class ServerTypeValidatorTest {
         serverType.setDescription("Hardware server");
         Errors errors = new BeanPropertyBindingResult(serverType, "serverType");
 
-        when(serverTypeRepository.findByName(serverType.getName())).thenReturn(Collections.EMPTY_LIST);
-
         serverTypeValidator.validate(serverType, errors);
 
         Assertions.assertThat(errors.hasErrors()).isFalse();
@@ -51,8 +48,6 @@ public class ServerTypeValidatorTest {
         ServerType serverType = new ServerType();
         serverType.setDescription("Hardware server");
         Errors errors = new BeanPropertyBindingResult(serverType, "serverType");
-
-        when(serverTypeRepository.findByName(serverType.getName())).thenReturn(Collections.EMPTY_LIST);
 
         serverTypeValidator.validate(serverType, errors);
 
@@ -67,7 +62,7 @@ public class ServerTypeValidatorTest {
         serverType.setDescription("Hardware server");
         Errors errors = new BeanPropertyBindingResult(serverType, "serverType");
 
-        List<ServerType> currentServerTypes = Arrays.asList(serverType);
+        List<ServerType> currentServerTypes = Collections.singletonList(serverType);
         when(serverTypeRepository.findByName(serverType.getName())).thenReturn(currentServerTypes);
 
         serverTypeValidator.validate(serverType, errors);
@@ -83,8 +78,6 @@ public class ServerTypeValidatorTest {
         serverType.setDescription("Hardware server");
         Errors errors = new BeanPropertyBindingResult(serverType, "serverType");
 
-        when(serverTypeRepository.findByName(serverType.getName())).thenReturn(Collections.EMPTY_LIST);
-
         serverTypeValidator.validate(serverType, errors);
 
         Assertions.assertThat(errors.hasErrors()).isTrue();
@@ -97,8 +90,6 @@ public class ServerTypeValidatorTest {
         ServerType serverType = new ServerType("Hardware Server");
         serverType.setDescription("This server type can't be described in less than one hundred characters, the maximum size for a server type description");
         Errors errors = new BeanPropertyBindingResult(serverType, "serverType");
-
-        when(serverTypeRepository.findByName(serverType.getName())).thenReturn(Collections.EMPTY_LIST);
 
         serverTypeValidator.validate(serverType, errors);
 

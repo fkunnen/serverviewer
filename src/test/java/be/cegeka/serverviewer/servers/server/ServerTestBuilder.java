@@ -9,7 +9,7 @@ import be.cegeka.serverviewer.servers.servertype.ServerType;
 public class ServerTestBuilder {
 
     private static final String SERVER_NAME = "B2B PRD 1";
-    private static final ServerType SERVER_TYPE_NAME = new ServerType("Virtual Server");
+    private static final ServerType SERVER_TYPE = new ServerType("Virtual Server");
     private static final String CODE = "HI08553";
     private static final String HOSTNAME = "SVRSVZPB2BAPP01";
     private static final String DESCRIPTION = "B2B PRD Weblogic Managed server 1";
@@ -18,7 +18,7 @@ public class ServerTestBuilder {
     private static final OperatingSystem OPERATING_SYSTEM = new OperatingSystem("RHEL 5 (64 bit)");
 
     private String name = SERVER_NAME;
-    private ServerType serverType = SERVER_TYPE_NAME;
+    private ServerType serverType = SERVER_TYPE;
     private String code = CODE;
     private String hostname = HOSTNAME;
     private String description = DESCRIPTION;

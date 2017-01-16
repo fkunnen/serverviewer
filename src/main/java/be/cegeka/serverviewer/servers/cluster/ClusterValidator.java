@@ -49,7 +49,6 @@ public class ClusterValidator implements Validator {
 
         if (name.length() > 45) {
             errors.rejectValue("name", "cluster.name.length", "The name of this cluster is too long");
-            return;
         }
     }
 

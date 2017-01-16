@@ -1,8 +1,5 @@
 package be.cegeka.serverviewer.servers.operatingsystem;
 
-import be.cegeka.serverviewer.servers.operatingsystem.OperatingSystem;
-import be.cegeka.serverviewer.servers.operatingsystem.OperatingSystemRepository;
-import be.cegeka.serverviewer.servers.operatingsystem.OperatingSystemValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,7 +10,6 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,8 +38,6 @@ public class OperatingSystemValidatorTest {
         operatingSystem.setDescription("Redhat Enterprise Linux 5 (32 bit)");
         Errors errors = new BeanPropertyBindingResult(operatingSystem, "operatingSystem");
 
-        when(operatingSystemRepository.findByName(operatingSystem.getName())).thenReturn(Collections.EMPTY_LIST);
-
         operatingSystemValidator.validate(operatingSystem, errors);
 
         Assertions.assertThat(errors.hasErrors()).isFalse();
@@ -54,8 +48,6 @@ public class OperatingSystemValidatorTest {
         OperatingSystem operatingSystem = new OperatingSystem();
         operatingSystem.setDescription("Redhat Enterprise Linux 5 (32 bit)");
         Errors errors = new BeanPropertyBindingResult(operatingSystem, "operatingSystem");
-
-        when(operatingSystemRepository.findByName(operatingSystem.getName())).thenReturn(Collections.EMPTY_LIST);
 
         operatingSystemValidator.validate(operatingSystem, errors);
 
@@ -70,7 +62,7 @@ public class OperatingSystemValidatorTest {
         operatingSystem.setDescription("Redhat Enterprise Linux 5 (32 bit)");
         Errors errors = new BeanPropertyBindingResult(operatingSystem, "operatingSystem");
 
-        List<OperatingSystem> currentOperatingSystems = Arrays.asList(operatingSystem);
+        List<OperatingSystem> currentOperatingSystems = Collections.singletonList(operatingSystem);
         when(operatingSystemRepository.findByName(operatingSystem.getName())).thenReturn(currentOperatingSystems);
 
         operatingSystemValidator.validate(operatingSystem, errors);
@@ -86,8 +78,6 @@ public class OperatingSystemValidatorTest {
         operatingSystem.setDescription("Redhat Enterprise Linux 5 (32 bit)");
         Errors errors = new BeanPropertyBindingResult(operatingSystem, "operatingSystem");
 
-        when(operatingSystemRepository.findByName(operatingSystem.getName())).thenReturn(Collections.EMPTY_LIST);
-
         operatingSystemValidator.validate(operatingSystem, errors);
 
         Assertions.assertThat(errors.hasErrors()).isTrue();
@@ -100,8 +90,6 @@ public class OperatingSystemValidatorTest {
         OperatingSystem operatingSystem = new OperatingSystem("Leuven");
         operatingSystem.setDescription("This operating system can't be described in less than one hundred characters, the maximum size for an operating system description");
         Errors errors = new BeanPropertyBindingResult(operatingSystem, "operatingSystem");
-
-        when(operatingSystemRepository.findByName(operatingSystem.getName())).thenReturn(Collections.EMPTY_LIST);
 
         operatingSystemValidator.validate(operatingSystem, errors);
 

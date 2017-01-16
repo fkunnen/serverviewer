@@ -49,7 +49,6 @@ public class MiddlewareValidator implements Validator {
 
         if (name.length() > 45) {
             errors.rejectValue("name", "middleware.name.length", "The name of this middleware is too long");
-            return;
         }
     }
 

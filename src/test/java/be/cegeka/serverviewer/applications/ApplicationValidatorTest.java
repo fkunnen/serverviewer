@@ -10,7 +10,6 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,8 +38,6 @@ public class ApplicationValidatorTest {
         application.setDescription("B2B applications");
         Errors errors = new BeanPropertyBindingResult(application, "applications");
 
-        when(applicationRepository.findByName(application.getName())).thenReturn(Collections.EMPTY_LIST);
-
         applicationValidator.validate(application, errors);
 
         Assertions.assertThat(errors.hasErrors()).isFalse();
@@ -51,8 +48,6 @@ public class ApplicationValidatorTest {
         Application application = new Application();
         application.setDescription("B2B applications");
         Errors errors = new BeanPropertyBindingResult(application, "applications");
-
-        when(applicationRepository.findByName(application.getName())).thenReturn(Collections.EMPTY_LIST);
 
         applicationValidator.validate(application, errors);
 
@@ -67,7 +62,7 @@ public class ApplicationValidatorTest {
         application.setDescription("B2B applications");
         Errors errors = new BeanPropertyBindingResult(application, "applications");
 
-        List<Application> currentApplications = Arrays.asList(application);
+        List<Application> currentApplications = Collections.singletonList(application);
         when(applicationRepository.findByName(application.getName())).thenReturn(currentApplications);
 
         applicationValidator.validate(application, errors);
@@ -83,8 +78,6 @@ public class ApplicationValidatorTest {
         application.setDescription("B2B applications");
         Errors errors = new BeanPropertyBindingResult(application, "applications");
 
-        when(applicationRepository.findByName(application.getName())).thenReturn(Collections.EMPTY_LIST);
-
         applicationValidator.validate(application, errors);
 
         Assertions.assertThat(errors.hasErrors()).isTrue();
@@ -97,8 +90,6 @@ public class ApplicationValidatorTest {
         Application application = new Application("B2B");
         application.setDescription("This applications can't be described in less than one hundred characters, the maximum size for a applications description");
         Errors errors = new BeanPropertyBindingResult(application, "applications");
-
-        when(applicationRepository.findByName(application.getName())).thenReturn(Collections.EMPTY_LIST);
 
         applicationValidator.validate(application, errors);
 

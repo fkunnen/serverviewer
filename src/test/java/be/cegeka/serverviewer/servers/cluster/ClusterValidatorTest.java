@@ -1,8 +1,5 @@
 package be.cegeka.serverviewer.servers.cluster;
 
-import be.cegeka.serverviewer.servers.cluster.Cluster;
-import be.cegeka.serverviewer.servers.cluster.ClusterRepository;
-import be.cegeka.serverviewer.servers.cluster.ClusterValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,7 +10,6 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,8 +38,6 @@ public class ClusterValidatorTest {
         cluster.setDescription("B2B production cluster");
         Errors errors = new BeanPropertyBindingResult(cluster, "cluster");
 
-        when(clusterRepository.findByName(cluster.getName())).thenReturn(Collections.EMPTY_LIST);
-
         clusterValidator.validate(cluster, errors);
 
         Assertions.assertThat(errors.hasErrors()).isFalse();
@@ -54,8 +48,6 @@ public class ClusterValidatorTest {
         Cluster cluster = new Cluster();
         cluster.setDescription("B2B production cluster");
         Errors errors = new BeanPropertyBindingResult(cluster, "cluster");
-
-        when(clusterRepository.findByName(cluster.getName())).thenReturn(Collections.EMPTY_LIST);
 
         clusterValidator.validate(cluster, errors);
 
@@ -70,7 +62,7 @@ public class ClusterValidatorTest {
         cluster.setDescription("B2B production cluster");
         Errors errors = new BeanPropertyBindingResult(cluster, "cluster");
 
-        List<Cluster> currentClusters = Arrays.asList(cluster);
+        List<Cluster> currentClusters = Collections.singletonList(cluster);
         when(clusterRepository.findByName(cluster.getName())).thenReturn(currentClusters);
 
         clusterValidator.validate(cluster, errors);
@@ -86,8 +78,6 @@ public class ClusterValidatorTest {
         cluster.setDescription("B2B production cluster");
         Errors errors = new BeanPropertyBindingResult(cluster, "cluster");
 
-        when(clusterRepository.findByName(cluster.getName())).thenReturn(Collections.EMPTY_LIST);
-
         clusterValidator.validate(cluster, errors);
 
         Assertions.assertThat(errors.hasErrors()).isTrue();
@@ -100,8 +90,6 @@ public class ClusterValidatorTest {
         Cluster cluster = new Cluster("B2B PRD Cluster");
         cluster.setDescription("This cluster can't be described in less than one hundred characters, the maximum size for a cluster description");
         Errors errors = new BeanPropertyBindingResult(cluster, "cluster");
-
-        when(clusterRepository.findByName(cluster.getName())).thenReturn(Collections.EMPTY_LIST);
 
         clusterValidator.validate(cluster, errors);
 

@@ -1,8 +1,5 @@
 package be.cegeka.serverviewer.servers.environment;
 
-import be.cegeka.serverviewer.servers.environment.Environment;
-import be.cegeka.serverviewer.servers.environment.EnvironmentRepository;
-import be.cegeka.serverviewer.servers.environment.EnvironmentValidator;
 import org.assertj.core.api.Assertions;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,7 +10,6 @@ import org.mockito.junit.MockitoRule;
 import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.Errors;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -42,8 +38,6 @@ public class EnvironmentValidatorTest {
         environment.setDescription("Test environment");
         Errors errors = new BeanPropertyBindingResult(environment, "environment");
 
-        when(environmentRepository.findByName(environment.getName())).thenReturn(Collections.EMPTY_LIST);
-
         environmentValidator.validate(environment, errors);
 
         Assertions.assertThat(errors.hasErrors()).isFalse();
@@ -54,8 +48,6 @@ public class EnvironmentValidatorTest {
         Environment environment = new Environment();
         environment.setDescription("Test environment");
         Errors errors = new BeanPropertyBindingResult(environment, "environment");
-
-        when(environmentRepository.findByName(environment.getName())).thenReturn(Collections.EMPTY_LIST);
 
         environmentValidator.validate(environment, errors);
 
@@ -70,7 +62,7 @@ public class EnvironmentValidatorTest {
         environment.setDescription("Test environment");
         Errors errors = new BeanPropertyBindingResult(environment, "environment");
 
-        List<Environment> currentEnvironments = Arrays.asList(environment);
+        List<Environment> currentEnvironments = Collections.singletonList(environment);
         when(environmentRepository.findByName(environment.getName())).thenReturn(currentEnvironments);
 
         environmentValidator.validate(environment, errors);
@@ -86,8 +78,6 @@ public class EnvironmentValidatorTest {
         environment.setDescription("Test environment");
         Errors errors = new BeanPropertyBindingResult(environment, "environment");
 
-        when(environmentRepository.findByName(environment.getName())).thenReturn(Collections.EMPTY_LIST);
-
         environmentValidator.validate(environment, errors);
 
         Assertions.assertThat(errors.hasErrors()).isTrue();
@@ -100,8 +90,6 @@ public class EnvironmentValidatorTest {
         Environment environment = new Environment("TST");
         environment.setDescription("This test environment can't be described in less than one hundred characters, the maximum size for an environment description");
         Errors errors = new BeanPropertyBindingResult(environment, "environment");
-
-        when(environmentRepository.findByName(environment.getName())).thenReturn(Collections.EMPTY_LIST);
 
         environmentValidator.validate(environment, errors);
 
