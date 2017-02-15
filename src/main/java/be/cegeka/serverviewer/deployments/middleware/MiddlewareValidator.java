@@ -23,11 +23,11 @@ public class MiddlewareValidator implements Validator {
     public void validate(Object target, Errors errors) {
         Middleware middleware = (Middleware) target;
 
-        validateLocationName(errors, middleware);
-        validateLocationDescription(errors, middleware);
+        validateMiddlewareName(errors, middleware);
+        validateMiddlewareDescription(errors, middleware);
     }
 
-    private void validateLocationName(Errors errors, Middleware middleware) {
+    private void validateMiddlewareName(Errors errors, Middleware middleware) {
         String name = middleware.getName();
         if (StringUtils.isEmpty(name)) {
             errors.rejectValue("name", "middleware.name.required", "Middleware name is mandatory");
@@ -52,7 +52,7 @@ public class MiddlewareValidator implements Validator {
         }
     }
 
-    private void validateLocationDescription(Errors errors, Middleware middleware) {
+    private void validateMiddlewareDescription(Errors errors, Middleware middleware) {
         String description = middleware.getDescription();
         if (StringUtils.isNotEmpty(description) && description.length() > 100) {
             errors.rejectValue(

@@ -23,7 +23,6 @@ import static be.cegeka.serverviewer.common.MockHttpServletFormRequestBuilder.po
 import static be.cegeka.serverviewer.common.MockHttpServletFormRequestBuilder.putForm;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)

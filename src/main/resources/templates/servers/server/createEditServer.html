@@ -105,7 +105,7 @@
 							<div class="col-sm-10">
 								<select th:field="*{environment}" id="environment" class="form-control" th:readonly="${server['new']} == false">
 									<option th:text="--" th:value="''">--</option>
-									<option th:each="env : ${environments}" th:text="${env}" th:value="${env}">PRD</option>
+									<option th:each="env : ${environments}" th:text="${env.name}" th:value="${env.id}">PRD</option>
 								</select>
 							</div>
 						</div>
@@ -116,7 +116,7 @@
 							<div class="col-sm-10">
 								<select th:field="*{operatingSystem}" id="operatingSystem" class="form-control" th:readonly="${server['new']} == false">
 									<option th:text="--" th:value="''">--</option>
-									<option th:each="os : ${operatingSystems}" th:text="${os}" th:value="${os}">RHEL 5 (64 bit)</option>
+									<option th:each="os : ${operatingSystems}" th:text="${os.name}" th:value="${os.id}">RHEL 5 (64 bit)</option>
 								</select>
 							</div>
 						</div>
@@ -127,7 +127,7 @@
 							<div class="col-sm-10">
 								<select th:field="*{cluster}" id="cluster" class="form-control" th:readonly="${server['new']} == false">
 									<option th:text="--" th:value="''">--</option>
-									<option th:each="clus : ${clusters}" th:text="${clus}" th:value="${clus}">RHEL 5 (64 bit)</option>
+									<option th:each="clus : ${clusters}" th:text="${clus.name}" th:value="${clus.id}">RHEL 5 (64 bit)</option>
 								</select>
 							</div>
 						</div>
