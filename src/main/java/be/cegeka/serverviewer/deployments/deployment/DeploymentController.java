@@ -66,7 +66,7 @@ public class DeploymentController {
         deployment.setApplication(deploymentDTO.getApplication());
         deployment.setServer(deploymentDTO.getServer());
         deployment.setMiddleware(deploymentDTO.getMiddleware());
-        deployment.setDockerized(deploymentDTO.isDockerized());
+        //deployment.setDockerized(deploymentDTO.isDockerized());
         deployment.setApplicationUrl(deploymentDTO.getApplicationUrl());
         deploymentValidator.validate(deployment, bindingResult);
         if (bindingResult.hasFieldErrors()){

@@ -2,9 +2,7 @@ package be.cegeka.serverviewer.deployments.deployment;
 
 
 import be.cegeka.serverviewer.config.SpringWebApplication;
-import be.cegeka.serverviewer.deployments.middleware.Middleware;
 import be.cegeka.serverviewer.servers.server.Server;
-import be.cegeka.serverviewer.servers.servertype.ServerType;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Test;
@@ -38,20 +36,20 @@ public class DeploymentControllerIntegrationTest {
     private MockMvc mockMvc;
 
     @Test
-    public void testGetAllMiddlewares() throws Exception {
+    public void testGetAllDEployments() throws Exception {
 
         mockMvc.perform(get("/deployments/deployment")
                 .accept(MediaType.TEXT_HTML))
                 .andExpect(status().isOk())
                 .andExpect(view().name("deployments/deployment/deployment"))
-                .andExpect(model().attribute("deployment", hasItems(new Middleware("Weblogic 12c"), new Middleware("Weblogic 11g"))));
+                .andExpect(model().attribute("deployments", hasItems(b2bApplicationOnPrd1(), b2bApplicationOnPrd2())));
     }
 
-    private Deployment b2bApplicationBuiltOnPrd1(){
+    private Deployment b2bApplicationOnPrd1(){
         return new DeploymentTestBuilder().build();
     }
 
-    private Deployment b2bApplicationBuiltOnPrd2(){
+    private Deployment b2bApplicationOnPrd2(){
         Server server = new Server("B2B PRD 2");
         return new DeploymentTestBuilder().withServer(server).build();
     }

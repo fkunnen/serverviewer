@@ -23,11 +23,11 @@ public class Deployment implements Persistable<Long> {
     @JoinColumn(name = "server_id")
     private Server server;
 
-    @Column
+    @ManyToOne
     @JoinColumn(name = "middleware_id")
     private Middleware middleware;
 
-    @Column(name = "runs_in_docker", nullable = false, columnDefinition = "TINYINT(1)")
+    @Column(name = "runs_in_docker", nullable = false, columnDefinition = "TINYINT")
     private boolean dockerized;
 
     @Column(name = "application_url")

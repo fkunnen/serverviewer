@@ -4,6 +4,6 @@
     <server id="1" name="B2B PRD 1" type_id="1" code="HI08553" hostname="SVRSVZPB2BAPP01" description="B2B PRD Weblogic Managed server 1"/>
     <server id="2" name="B2B PRD 2" type_id="1" code="HI08554" hostname="SVRSVZPB2BAPP02" description="B2B PRD Weblogic Managed server 2"/>
     <middleware id="1" name="Weblogic 11g" description="Oracle WebLogic Server 11g (10.3.6)"/>
-    <deployment application_id="1" server_id="1" middleware_id="1" runs_in_docker="0" application_url=""/>
-    <deployment application_id="1" server_id="2" middleware_id="1" runs_in_docker="0" application_url="http://b2b.rsvz-inasti.fgov.be"/>
+    <deployment id="1" application_id="1" server_id="1" middleware_id="1" runs_in_docker="0" application_url="http://b2b.rsvz-inasti.fgov.be"/>
+    <deployment id="2" application_id="1" server_id="2" middleware_id="1" runs_in_docker="0" application_url="http://b2b.rsvz-inasti.fgov.be"/>
 </dataset>
