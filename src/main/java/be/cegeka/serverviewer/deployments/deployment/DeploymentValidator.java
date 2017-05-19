@@ -27,7 +27,9 @@ public class DeploymentValidator implements Validator {
 
         validateDeploymentApplication(errors, deployment);
         validateDeploymentServer(errors, deployment);
-        validateDeploymentApplicationServerUnique(errors, deployment);
+        if (!errors.hasErrors()) {
+            validateDeploymentApplicationServerUnique (errors, deployment);
+        }
         validateApplicationUrl(errors, deployment);
     }
 

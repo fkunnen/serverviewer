@@ -15,7 +15,7 @@ public class Deployment implements Persistable<Long> {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "application_id")
     private Application application;
 
@@ -27,7 +27,7 @@ public class Deployment implements Persistable<Long> {
     @JoinColumn(name = "middleware_id")
     private Middleware middleware;
 
-    @Column(name = "runs_in_docker", nullable = false, columnDefinition = "TINYINT")
+    @Column(name = "runs_in_docker")
     private boolean dockerized;
 
     @Column(name = "application_url")
@@ -92,7 +92,10 @@ public class Deployment implements Persistable<Long> {
 
     @Override
     public String toString() {
-        return application.getName() + " - " + server.getName();
+        if (application != null & server != null) {
+            return application.getName() + " - " + server.getName();
+        }
+        return "";
     }
 
     @Override
@@ -102,13 +105,14 @@ public class Deployment implements Persistable<Long> {
 
         Deployment that = (Deployment) o;
 
-        return application.equals(that.application) && server.equals(that.server);
+        if (application != null ? !application.equals(that.application) : that.application != null) return false;
+        return server != null ? server.equals(that.server) : that.server == null;
     }
 
     @Override
     public int hashCode() {
-        int result = application.hashCode();
-        result = 31 * result + server.hashCode();
+        int result = application != null ? application.hashCode() : 0;
+        result = 31 * result + (server != null ? server.hashCode() : 0);
         return result;
     }
 }

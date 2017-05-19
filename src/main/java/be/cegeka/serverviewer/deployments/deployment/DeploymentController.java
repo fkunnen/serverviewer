@@ -33,13 +33,13 @@ public class DeploymentController {
     @RequestMapping(value = "/deployments/deployment", method = RequestMethod.GET)
     public String getAllDeployments(Model model) {
         model.addAttribute("deployments", deploymentRepository.findAll());
-        addDependenciesAttributes(model);
         return "deployments/deployment/deployment";
     }
 
     @RequestMapping(value= "/deployments/deployment/create", method = RequestMethod.GET)
     public String createDeploymentForm(Model model){
         model.addAttribute("deployment", new Deployment());
+        addDependenciesAttributes(model);
         return "deployments/deployment/createEditDeployment";
     }
 
@@ -66,7 +66,7 @@ public class DeploymentController {
         deployment.setApplication(deploymentDTO.getApplication());
         deployment.setServer(deploymentDTO.getServer());
         deployment.setMiddleware(deploymentDTO.getMiddleware());
-        //deployment.setDockerized(deploymentDTO.isDockerized());
+        deployment.setDockerized(deploymentDTO.isDockerized());
         deployment.setApplicationUrl(deploymentDTO.getApplicationUrl());
         deploymentValidator.validate(deployment, bindingResult);
         if (bindingResult.hasFieldErrors()){

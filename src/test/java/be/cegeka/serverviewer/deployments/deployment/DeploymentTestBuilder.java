@@ -25,7 +25,7 @@ public class DeploymentTestBuilder {
     public Deployment build(){
         Deployment deployment = new Deployment(application, server);
         deployment.setMiddleware(middleware);
-        //deployment.setDockerized(dockerized);
+        deployment.setDockerized(dockerized);
         deployment.setApplicationUrl(applicationUrl);
         return deployment;
     }

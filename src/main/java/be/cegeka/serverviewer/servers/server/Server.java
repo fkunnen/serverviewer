@@ -61,6 +61,7 @@ public class Server implements Persistable<Long> {
     }
 
     @Override
+    @Transient
     public boolean isNew() {
         return id == null;
     }
